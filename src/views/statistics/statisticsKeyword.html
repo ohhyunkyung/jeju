@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no,address=no,email=no">
+	<!-- 캐쉬 삭제  -->
+	<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<!-- 캐쉬 삭제  -->
+	<title>챗봇 설정</title>
+	<!------------------------------ favicon-->
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="../../static/images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="../../static/images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../../static/images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../static/images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../../static/images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../../static/images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../../static/images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../../static/images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../static/images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../static/images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../../static/images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="../../static/images/favicon//manifest.json"> 
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../../static/images/favicon//ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">-->
+
+	<!------------------------------ css-->
+	<link rel="stylesheet" href="./../../css/common.css"/>
+	<link rel="stylesheet" href="./../../css/page.css"/>
+</head>
+<body>
+	<div class="wrap">
+		<header>
+    <a href="javascript:;" onclick="dashboard();"><i class="logo"></i></a>
+    <div class="userInfo">
+        <div class="userInfoChatbot">
+            <div class="gap8 m-r20">
+                <i class="ico-chatbot"></i>
+                <span>챗봇</span>
+            </div>
+            <div class="gap12">
+                <button type="button" class="btn-blue500" onclick="chatbotTest(this);">테스트 챗봇</button>
+                <button type="button" class="btn-gray800" onclick="chatbot(this);">운영 챗봇</button>
+            </div>
+        </div>
+        <span class="userInfoNm">
+            <span class="m-r12">
+                <a href="javascript:;" class="btn-link" onclick="mypage(this);">김제주님</a> 반갑습니다.
+            </span>
+            <i class="ico-smile"></i>
+        </span>
+        <button type="button" class="btn-icon" onclick="logout();"><i class="ico-logout"></i></button>
+    </div>
+</header>
+<!--//header-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+		<div class="contents">
+			<div class="nav">
+    <ul>
+        <!-- 메뉴 active : a addClass('active') -->
+        <li><a href="javascript:;" onclick="dashboard();"><i></i>대시보드</a></li>
+        <li>
+            <a href="javascript:;"><i></i>챗봇 설정</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="chatbotSetting();">챗봇 설정</a></li>
+                <li><a href="javascript:;" onclick="chatbotSettingTxt();">문구 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>페르소나</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="persona();" >페르소나 현황</a></li>
+                <li><a href="javascript:;" onclick="personaApprove();">승인 요청 내역</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>지식 베이스</a>
+            <ul>
+                <li><a href="javascript:;" onclick="knowledge();">지식 베이스 현황</a></li>
+                <li><a href="javascript:;" onclick="knowledgeApprove();">승인 요청 내역</a></li>
+                <li><a href="javascript:;" onclick="knowledgeKeyword();">키워드</a></li>
+                <li><a href="javascript:;" onclick="knowledgeUnlearned();">미학습 질문</a></li>
+                <li><a href="javascript:;" onclick="knowledgeIncorrect();">오답변</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>통계</a>
+            <ul>
+                <li><a href="javascript:;" onclick="statisticsChat();">세션</a></li>
+                <li><a href="javascript:;" onclick="statisticsQuestion();">질문</a></li>
+                <li><a href="javascript:;" onclick="statisticsSatisfaction();">만족도 </a></li>
+                <li><a href="javascript:;" onclick="statisticsKeyword();">키워드 </a></li>
+                <li><a href="javascript:;" onclick="statisticsChatTotal();">채팅 내역 </a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;" onclick="accountMng();" ><i></i>계정 관리</a></li>
+    </ul>
+</div>
+<!--//nav-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+			<div class="pages">
+				<div class="title-page">
+					<h1>키워드 통계</h1>
+				</div>
+				<div class="search">
+					<ul class="form">
+						<li>
+							<label>기간</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="dateAll" name="dateType" checked="">
+									<label for="dateAll">전체</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateToday" name="dateType">
+									<label for="dateToday">오늘</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateWeek" name="dateType">
+									<label for="dateWeek">7일전</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateMonth" name="dateType">
+									<label for="dateMonth">1개월</label>
+								</div>
+							</div>
+							<div class="ipt iptDate">
+								<i class="ico-date"></i>
+								<a href="javascript:;" class="dateN" onclick="date(this);">날짜 선택</a>
+								<span class="tag ligthOrangeLine datepicker" style="display:none;">
+									<!-- 디폴트 : 날짜 적용x -->
+									<input type="text" class="">
+									<a href="javascript:;" class="dateDelete" onclick="dateDelete(this);"><i class="ico-close orange500"></i></a>
+								</span>
+							</div>
+						</li>
+						<li>
+							<div class="ipt">
+								<input type="text" placeholder="내용 입력">
+							</div>
+							<button type="button" class="btn-icon" onclick="search(this);"><i class="ico-sch"></i></button>
+						</li>
+					</ul>
+					<button type="button" class="btn-l" onclick="download();"><i class="ico-download"></i>다운로드</button>
+				</div>
+				<!--//search-->
+
+				<div class="tbl">
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="120"> <!--순위-->
+								<col width="120"> <!--키워드-->
+								<col width="120"> <!--검색 수-->
+								<col width="120"> <!--검색 비율-->
+								<col width="*"> <!--지식베이스 수-->
+							</colgroup>
+							<tr>
+								<th><button type="button" class="sort"><span>순위</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>키워드</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>검색 수</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>검색 율</span><i class="ico-sort"></i></button></th>
+								<th></th>
+							</tr>
+						</table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody">
+						<!-- empty addClass('open')-->
+						<div class="empty center">
+							<i></i>
+							<dl>
+								<dt>검색 결과가 없습니다.</dt>
+								<dd>다른 키워드로 다시 시도해 주세요.</dd>
+							</dl>
+						</div>
+						<!--//empty-->
+						<table>
+							<colgroup>
+								<col width="120"> <!--순위-->
+								<col width="120"> <!--키워드-->
+								<col width="120"> <!--검색 수-->
+								<col width="120"> <!--검색 율-->
+								<col width="*"> <!--지식베이스 수-->
+							</colgroup>
+							<tr onclick="detail(this)">
+								<td>1</td>
+								<td>
+									<span class="ligthOrangeLine tag">항공권</span>
+								</td>
+								<td>22</td>
+								<td>70%</td>
+								<td></td>
+							</tr>
+							<tr onclick="detail(this)">
+								<td>2</td>
+								<td>
+									<span class="ligthOrangeLine tag">항공권</span>
+								</td>
+								<td>22</td>
+								<td>30%</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+					<!--//tblBody-->
+					<div class="tblFooter">
+						<div class="paging">
+							<div class="prev">
+								<button type="button" class="max" disabled></button>
+								<button type="button" disabled></button>
+							</div>
+							<ul>
+								<!-- 페이징 활성화 : a addClass('on') -->
+								<li><a href="javascript:;" class="on">1</a></li>
+								<li><a href="javascript:;">2</a></li>
+								<li><a href="javascript:;">3</a></li>
+								<li><a href="javascript:;">4</a></li>
+							</ul>
+							<div>
+								<button type="button"></button>
+								<button type="button" class="max"></button>
+							</div>
+						</div>
+					</div>
+					<!--//tblFooter-->
+				</div>
+				<!--//tbl-->
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+
+
+<!-------------------------------- popup incloude -->
+    <!-- 질문내역 -->
+    <section class="pop page " id="p_detail">
+	<div class="popBox">
+		<div class="popCon">
+			<div class="popHd"> 
+				<div class="flexC">
+					<h2>질문 내역</h2>
+					<!-- 히스토리 있을 때 show-->
+					<button type="button" class="btn-l blue100 m-l16" onclick="history(this);" id="history" style="display: none;">히스토리 보기</button>
+				</div>
+				<a href="javascript:;" class="popClose"></a>
+			</div>
+			<div class="popBody gap32">
+				<div class="flexColumn gap12">
+					<h1 class="ft32">“항공권”</h1>
+					<div class="cmt open"><i></i><span>참고 지식베이스가 1개일 경우 자동완성 답변입니다.</span></div>
+				</div>
+				<div class="flex flex1 gap32 scrollN">
+					<div class="tbl">
+						<div class="tblTop">
+							<div class="total">총 <strong>19</strong> 개</div>
+							<button type="button" class="btn-l" onclick="download();"><i class="ico-download"></i>다운로드</button>
+						</div>
+						<div class="tblHd">
+							<table>
+								<colgroup>
+									<col width="160"> <!--검색일시-->
+									<col width="*"> <!--질문-->
+									<col width="140"> <!--참고 지식베이스-->
+									<col width="100"> <!--지식베이스 보기-->
+								</colgroup>
+								<tr>
+									<th><button type="button" class="sort"><span>검색일시</span><i class="ico-sort"></i></button></th>
+									<th>질문</th>
+									<th><button type="button" class="sort"><span>참고 지식베이스</span><i class="ico-sort"></i></button></th>
+									<th></th>
+								</tr>
+							</table>
+						</div>
+						<!--//tblHd-->
+						<div class="tblBody">
+							<table>
+								<colgroup>
+									<col width="160"> <!--검색일시-->
+									<col width="*"> <!--질문-->
+									<col width="140"> <!--참고 지식베이스-->
+									<col width="100"> <!--지식베이스 보기-->
+								</colgroup>
+								<!-- 최신순 정렬-->
+								<tr class="selected">
+									<td>2024.09.28 15:15:16</td>
+									<td>항공권 이벤트 있나요?</td>
+									<td>1</td>
+									<td>
+										<button type="button" class="btn-b" onclick="knowledgeDetail(this,'default');">상세보기</button>
+									</td>
+								</tr>
+								<tr>
+									<td>2024.09.27 15:15:16</td>
+									<td>항공권 이벤트 있나요?</td>
+									<td>5</td>
+									<td>
+										<button type="button" class="btn-b" onclick="knowledgeDetail(this,'multi');">상세보기</button>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!--//tblBody-->
+					</div>
+					<!--//tbl-->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--//키워드 상세-->
+
+
+
+<script>
+		//질문 상세
+		function detail(){
+			$('#p_detail').addClass('open')
+		}
+		
+</script>
+	<!-- 전체채팅내역 -->
+	<section class="pop" id="p_detailChat">
+	<div class="popBox" style="height: 80%;">
+		<div class="popHd">
+			<h2>채팅 내역</h2>
+			<a href="javascript:;" class="popClose"></a>
+		</div>
+		<div class="popBody">
+			<div class="chatbot defaultSet minHInit" style="width:720px;">
+				<div class="chatBody" id="chat_log_list"><div class="chatUser" style="display:inline-grid;">	<div class="bubble">		<pre>オペレーター番号を教えて</pre>	</div></div><div>	<div class="chatProfile">		<img src="http://13.125.231.68/images/20241213090926.gif" style="width:2em; height: 2em;">하이제코	</div>	<div class="bubble">		<pre><p>申し訳ありませんが、オペレーター番号についての情報は提供できません。詳細については、済州航空のカスタマーセンターにお問い合わせください 😊</p>
+				</pre>	</div></div><div class="chatUser" style="display:inline-grid;">	<div class="bubble">		<pre>오퍼레이터 번호</pre>	</div></div><div>	<div class="chatProfile">		<img src="http://13.125.231.68/images/20241213090926.gif" style="width:2em; height: 2em;">하이제코	</div>	<div class="bubble">		<pre><p>안녕하세요! 😊 제주항공 고객센터에 직접 연결을 원하시는 경우, 아래 정보를 참고해주세요.</p>
+					<ul>
+						<li><strong>전화 상담</strong>: 1599-1500 (운영시간: 매일 09:00~19:00)</li>
+						<li><strong>1:1 채팅 상담</strong>: <a href="https://www.jejuair.net/ko/customerService/csCenter/faqList.do" target="_blank">고객센터 페이지</a>에서 "1:1 채팅 문의"를 클릭하세요. (운영시간: 09:00~18:00)</li>
+						<li><strong>1:1 문의 접수</strong>: <a href="https://www.jejuair.net/ko/customerService/csCenter/qnaForm.do" target="_blank">1:1 문의 접수</a>에서 24시간 접수 가능합니다.</li>
+					</ul>
+					<p>편리한 방법으로 문의해 주세요! 😊✈️</p>
+				</pre>	</div></div><div class="chatUser" style="display:inline-grid;">	<div class="bubble">		<pre>상담원 번호</pre>	</div></div><div>	<div class="chatProfile">		<img src="http://13.125.231.68/images/20241213090926.gif" style="width:2em; height: 2em;">하이제코	</div>	<div class="bubble">		<pre><p>안녕하세요! 😊 제주항공 고객센터 상담원 연결을 원하시는 경우 아래 방법을 참고해 주세요!</p>
+					<ul>
+						<li><strong>전화 상담</strong>: 1599-1500 (운영시간: 매일 09:00~19:00)</li>
+						<li><strong>1:1 채팅 상담</strong>: <a href="https://www.jejuair.net/ko/customerService/csCenter/faqList.do" target="_blank">고객센터 페이지</a>에서 "1:1 채팅 문의"를 클릭하세요. (운영시간: 09:00~18:00)</li>
+						<li><strong>1:1 문의 접수</strong>: <a href="https://www.jejuair.net/ko/customerService/csCenter/qnaForm.do" target="_blank">1:1 문의 접수</a>에서 24시간 접수 가능합니다.</li>
+					</ul>
+					<p>상담원 연결이 어려울 경우, 1:1 문의 접수를 이용하시면 빠르게 답변을 받으실 수 있어요! 😊✈️</p>
+				</pre>	</div></div><div class="chatUser" style="display:inline-grid;">	<div class="bubble">		<pre>オペレーター番号を教えて</pre>	</div></div><div>	<div class="chatProfile">		<img src="http://13.125.231.68/images/20241213090926.gif" style="width:2em; height: 2em;">하이제코	</div>	<div class="bubble">		<pre><p>済州航空のカスタマーセンターに直接お問い合わせいただく場合、以下の番号をご利用ください😊</p>
+					<ul>
+						<li><strong>日本のお客様センター</strong>: 0570-001132  </li>
+						<li><strong>韓国のお客様センター</strong>: 1599-1500 (営業時間: 毎日09:00～19:00)</li>
+					</ul>
+					<p>また、<a href="https://www.jejuair.net/ja/customerService/csCenter/faqList.do" target="_blank">カスタマーセンターページ</a>で1:1チャット相談やお問い合わせも可能です！</p>
+				</pre>	</div></div></div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--//전체채팅내역-->
+
+
+<script>
+	//전체 채팅 내역
+	function getChatAll(){
+			$('#p_detailChat').addClass('open')
+		}
+</script>
+	<!-- 키우드 상세-->
+	<section class="pop" id="p_selKnowledge">
+	<div class="popBox" style="width:1500px; height: 90%; ">
+		<div class="popHd">
+			<h2>키워드  상세</h2>
+			<a href="javascript:;" class="popClose"></a>
+		</div>
+		<div class="popBody gap24">
+			<div class="flex scrollN">
+				<div class="chatbot chatPreview defaultSet minHInit">
+					<div class="chatHd"></div>
+					<div class="satisfaction" id="chatSatisfaction" style="display: none;">
+						<div class="satisfactionCon">
+							<strong class="crOrange500">챗봇 상담이 도움되셨나요?</strong>
+							<div class="chatBtns">
+								<span><i class="ico-like"></i>네</span>
+								<span><i class="ico-like unLike"></i>아니요</span>
+							</div>
+						</div>
+					</div>
+					<div class="chatBody">
+						<div class="chatUser" style="display:inline-grid;">
+							<div class="bubble">
+								<pre>항공권 이벤트 있나요?</pre>
+							</div>
+						</div>
+						<!--//질문-->
+						<div>
+							<div class="chatProfile">
+								<!-- 디폴트 : ico-chatbotDefault.svg-->
+								<img src="../../images/icon/ico-chatbot.svg">
+								하이제코
+							</div>
+							<div class="bubble">
+								<pre>제주항공에서 진행중인 이벤트가 궁금하신가요? 아래의 내용을 확인해보세요!</pre>
+							</div>
+						</div>
+						<!--//답변-->
+					</div>
+					<div class="flexC justifyC m-t12"><button type="button" class="btn-l" id="getChatAll" onclick="getChatAll();">전체 채팅 보기</button></div>
+				</div>
+				<div class="tbl">
+					<div class="tblTop">
+						<div class="total">총 <strong>19</strong> 개</div>
+					</div>
+					<!--//tblTop-->
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="70"> <!--순위-->
+								<col width="70"> <!--코드-->
+								<col width="160"> <!--카테고리-->
+								<col width="*"> <!--내용-->
+								<col width="140"> <!--상세-->
+							</colgroup>
+							<tbody><tr>
+								<th>순위</th>
+								<th>코드</th>
+								<th><button type="button" class="sort"><span>카테고리</span><i class="ico-sort"></i></button></th>
+								<th>내용</th>
+								<th></th>
+							</tr>
+						</tbody></table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody">
+						<table>
+							<colgroup>
+								<col width="70"> <!--순위-->
+								<col width="70"> <!--코드-->
+								<col width="160"> <!--카테고리-->
+								<col width="*"> <!--내용-->
+								<col width="140"> <!--상세-->
+							</colgroup>
+							<!-- 테스트 -->
+							<tbody><tr>
+								<td>1</td>
+								<td>K4</td>
+								<td>회원</td>
+								<td>
+									<strong>항공권 예약 변경 및 취소는 어떻게 하나요?</strong>
+									<div class="tdKeyword">
+										<div>
+											<pre><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span></pre>
+										</div>
+										<button type="button" class="btn-l btn-icon" onclick="moreKeyword(this);"><i class="ico-arw-center"></i></button>
+									</div>
+								</td>
+								<td><button type="button" class="btn-b">지식베이스 보기</button></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>K4</td>
+								<td>회원</td>
+								<td>
+									<strong>항공권 예약 변경 및 취소는 어떻게 하나요?</strong>
+									<div class="tdKeyword">
+										<div>
+											<pre><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span></pre>
+										</div>
+										<button type="button" class="btn-l btn-icon" onclick="moreKeyword(this);"><i class="ico-arw-center"></i></button>
+									</div>
+								</td>
+								<td><button type="button" class="btn-b">지식베이스 보기</button></td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>K4</td>
+								<td>회원</td>
+								<td>
+									<strong>항공권 예약 변경 및 취소는 어떻게 하나요?</strong>
+									<div class="tdKeyword">
+										<div>
+											<pre><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span></pre>
+										</div>
+										<button type="button" class="btn-l btn-icon" onclick="moreKeyword(this);"><i class="ico-arw-center"></i></button>
+									</div>
+								</td>
+								<td><button type="button" class="btn-b">지식베이스 보기</button></td>
+							</tr>
+						</tbody></table>
+					</div>
+					<!--//tblBody-->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--//질문 내역-->
+
+<script>
+	//상세보기
+	function knowledgeDetail(obj, type){
+
+$('#p_selKnowledge').addClass('open');
+
+if( type == 'default'){ //1개일때
+	$('#getChatAll').hide(); //전체 채팅내역 버튼 hide
+
+
+}else if( type == 'multi' ){ //2개이상일때
+	
+	$('#getChatAll').show(); //전체 채팅내역 버튼 show
+	
+}
+}
+</script>
+
+    <!-------------------------------- script -->
+    <script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+</body>
+</html>

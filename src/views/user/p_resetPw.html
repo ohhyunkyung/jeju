@@ -1,0 +1,40 @@
+<section class="pop " id="p_resetPw">
+	<div class="alertCon">
+		<div class="alerHd">
+			<i class="que"></i>
+			<div class="alertTxt">
+				<strong>비밀번호를 변경하시겠습니까?</strong>
+				<p>8~16자리의 영문, 숫자로 입력해주세요.</p>
+			</div>
+		</div>
+		<ul class="boxUl">
+			<li>계정 ID와 동일한 문구는 입력하지 마세요.</li>
+			<li>동일 단어 또는 숫자를 2회 이상 반복하지 마세요.</li>
+			<li>개인 신상 및 부서 명칭 등은 입력하지 마세요.</li>
+			<li>직전 5개 패스워드를 입력하지 마세요.</li>
+		</ul>
+		<div class="alertBody">
+			<ul class="form">
+				<li class="ness">
+					<label>새 비밀번호</label>
+					<div class="ipt focus">
+						<input type="password" onkeyup="resetPwVaild(this,'pw1');" id="changePw1">
+					</div>
+				</li><li class="ness">
+					<label>새 비밀번호 확인</label>
+					<div class="ipt">
+						<input type="password" onkeyup="resetPwVaild(this,'pw2');">
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="alerFooter">
+			<button type="button" class="btn-l" onclick="popClose(this);">취소</button>
+			<button type="button" class="btn-b savePop" onclick="savResetPw(this);" disabled="">
+				<i class="ico-chk wh"></i>초기화 하기
+			</button>
+		</div>
+		<p class="cmt open err"><i></i>계정 사용자에게 임시 비밀번호를 전달해 주세요.</p>
+	</div>
+</section>
+<!--//비밀번호 초기화-->

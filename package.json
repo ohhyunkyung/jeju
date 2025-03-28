@@ -1,0 +1,28 @@
+{
+  "name": "voiceagent",
+  "version": "1.0.0",
+  "description": "보이스에이전트",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ohhyunkyung/voiceagent.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ohhyunkyung/voiceagent/issues"
+  },
+  "homepage": "https://github.com/ohhyunkyung/voiceagent#readme",
+  "devDependencies": {
+    "gulp": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-file-include": "^2.3.0"
+  },
+  "dependencies": {
+    "browser-sync": "^3.0.3"
+  }
+}

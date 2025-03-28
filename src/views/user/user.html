@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no,address=no,email=no">
+	<!-- 캐쉬 삭제  -->
+	<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<!-- 캐쉬 삭제  -->
+	<title>챗봇 설정</title>
+	<!------------------------------ favicon-->
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="../../static/images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="../../static/images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../../static/images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../static/images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../../static/images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../../static/images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../../static/images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../../static/images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../static/images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../static/images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../../static/images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="../../static/images/favicon//manifest.json"> 
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../../static/images/favicon//ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">-->
+
+	<!------------------------------ css-->
+	<link rel="stylesheet" href="./../../css/common.css"/>
+	<link rel="stylesheet" href="./../../css/page.css"/>
+</head>
+<body>
+	<div class="wrap">
+		<header>
+    <a href="javascript:;" onclick="dashboard();"><i class="logo"></i></a>
+    <div class="userInfo">
+        <div class="userInfoChatbot">
+            <div class="gap8 m-r20">
+                <i class="ico-chatbot"></i>
+                <span>챗봇</span>
+            </div>
+            <div class="gap12">
+                <button type="button" class="btn-blue500" onclick="chatbotTest(this);">테스트 챗봇</button>
+                <button type="button" class="btn-gray800" onclick="chatbot(this);">운영 챗봇</button>
+            </div>
+        </div>
+        <span class="userInfoNm">
+            <span class="m-r12">
+                <a href="javascript:;" class="btn-link" onclick="mypage(this);">김제주님</a> 반갑습니다.
+            </span>
+            <i class="ico-smile"></i>
+        </span>
+        <button type="button" class="btn-icon" onclick="logout();"><i class="ico-logout"></i></button>
+    </div>
+</header>
+<!--//header-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+		<div class="contents">
+			<div class="nav">
+    <ul>
+        <!-- 메뉴 active : a addClass('active') -->
+        <li><a href="javascript:;" onclick="dashboard();"><i></i>대시보드</a></li>
+        <li>
+            <a href="javascript:;"><i></i>챗봇 설정</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="chatbotSetting();">챗봇 설정</a></li>
+                <li><a href="javascript:;" onclick="chatbotSettingTxt();">문구 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>페르소나</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="persona();" >페르소나 현황</a></li>
+                <li><a href="javascript:;" onclick="personaApprove();">승인 요청 내역</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>지식 베이스</a>
+            <ul>
+                <li><a href="javascript:;" onclick="knowledge();">지식 베이스 현황</a></li>
+                <li><a href="javascript:;" onclick="knowledgeApprove();">승인 요청 내역</a></li>
+                <li><a href="javascript:;" onclick="knowledgeKeyword();">키워드</a></li>
+                <li><a href="javascript:;" onclick="knowledgeUnlearned();">미학습 질문</a></li>
+                <li><a href="javascript:;" onclick="knowledgeIncorrect();">오답변</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>통계</a>
+            <ul>
+                <li><a href="javascript:;" onclick="statisticsChat();">세션</a></li>
+                <li><a href="javascript:;" onclick="statisticsQuestion();">질문</a></li>
+                <li><a href="javascript:;" onclick="statisticsSatisfaction();">만족도 </a></li>
+                <li><a href="javascript:;" onclick="statisticsKeyword();">키워드 </a></li>
+                <li><a href="javascript:;" onclick="statisticsChatTotal();">채팅 내역 </a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;" onclick="accountMng();" ><i></i>계정 관리</a></li>
+    </ul>
+</div>
+<!--//nav-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+			<div class="pages">
+				<div class="title-page">
+					<h1>계정 관리</h1>
+				</div>
+				<div class="search">
+					<ul class="form">
+						<li>
+							<label>등록일</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="dateAll" name="dateType" checked="">
+									<label for="dateAll">전체</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateToday" name="dateType">
+									<label for="dateToday">오늘</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateWeek" name="dateType">
+									<label for="dateWeek">7일전</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateMonth" name="dateType">
+									<label for="dateMonth">1개월</label>
+								</div>
+							</div>
+							<div class="ipt iptDate">
+								<i class="ico-date"></i>
+								<a href="javascript:;" class="dateN" onclick="date(this);" >날짜 선택</a>
+								<span class="tag ligthOrangeLine datepicker" style="display:none;">
+									<!-- 디폴트 : 날짜 적용x -->
+									<input type="text" class="" >
+									<a href="javascript:;" class="dateDelete" onclick="dateDelete(this);"><i class="ico-close orange500"></i></a>
+								</span>
+							</div>
+						</li>
+						<li>
+							<label>조직</label>
+							<div class="ipt">
+								<select>
+									<option>부서 전체</option>
+									<option>고객 경영팀</option>
+									<option>고객 센터</option>
+								</select>
+								<select>
+									<option>직급 전체</option>
+									<option>상담사</option>
+									<option>센터장</option>
+									<option>팀원</option>
+									<option>팀장</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<label>권한</label>
+							<div class="ipt">
+								<select>
+									<option>전체</option>
+									<option>사용자</option>
+									<option>관리자</option>
+									<option>슈퍼관리자</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<label>
+								<select>
+									<option>전체</option>
+									<option>사용자명</option>
+									<option>연락처</option>
+									<option>아이디</option>
+								</select>
+							</label>
+							<div class="ipt">
+								<input type="text" placeholder="검색어 입력">
+							</div>
+							<button type="button" class="btn-icon" onclick="search(this);"><i class="ico-sch"></i></button>
+						</li>
+					</ul>
+				</div>
+				<!--//search-->
+				<div class="tbl">
+					<div class="tblTop">
+						<div class="total">총 <strong>19</strong> 개</div>
+						<div class="btnArea">
+							<button type="button" class="btn-b" onclick="orgAdmin();"><i class="ico-setting wh"></i>조직 관리</button>
+							<button type="button" class="btn-p" onclick="add();"><i class="ico-plus wh"></i>계정 추가</button>
+						</div>
+					</div>
+					<!--//tblTop-->
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="70"> <!--no-->
+								<col width="120"> <!--등록일-->
+								<col width="140"> <!--부서-->
+								<col width="100"> <!--직급-->
+								<col width="100"> <!--사용자명-->
+								<col width="140"> <!--연락처-->
+								<col width="100"> <!--권한-->
+								<col width="*"> <!--아이디-->
+								<col width="140"> <!--사용여부-->
+							</colgroup>
+							<tr>
+								<th>No</th>
+								<th><button type="button" class="sort"><span>등록일</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>부서</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>직급</span><i class="ico-sort"></i></button></th>
+								<th>사용자명</th>
+								<th>연락처</th>
+								<th><button type="button" class="sort"><span>권한</span><i class="ico-sort"></i></button></th>
+								<th>아이디</th>
+								<th><button type="button" class="sort"><span>사용여부</span><i class="ico-sort"></i></button></th>
+							</tr>
+						</table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody">
+						<!-- empty addClass('open')-->
+						<div class="empty center ">
+							<i></i>
+							<dl>
+								<dt>검색 결과가 없습니다.</dt>
+								<dd>다른 키워드로 다시 시도해 주세요.</dd>
+							</dl>
+						</div>
+						<!--//empty-->
+						<table>
+							<colgroup>
+								<col width="70"> <!--no-->
+								<col width="120"> <!--등록일-->
+								<col width="140"> <!--부서-->
+								<col width="100"> <!--직급-->
+								<col width="100"> <!--사용자명-->
+								<col width="140"> <!--연락처-->
+								<col width="100"> <!--권한-->
+								<col width="*"> <!--아이디-->
+								<col width="140"> <!--사용여부-->
+							</colgroup>
+							<tr onclick="detail(this,'default');">
+								<td>3</td>
+								<td>2024.09.05</td>
+								<td>고객 경영팀</td>
+								<td>대리</td>
+								<td>홍길동</td>
+								<td>010-4656-4565</td>
+								<td>사용자</td>
+								<td>hong3</td>
+								<td>
+									<!-- tag addClass('미사용:디폴트, 사용:ligthOrange', '사용 불가:lightRed')-->
+									<span class="tag ligthOrange">사용</span>
+								</td>
+							</tr>
+							<tr onclick="detail(this,'lock');">
+								<td>2</td>
+								<td>2024.09.05</td>
+								<td>고객 경영팀</td>
+								<td>대리</td>
+								<td>홍길동</td>
+								<td>010-4656-4565</td>
+								<td>사용자</td>
+								<td>hong3</td>
+								<td>
+									<span class="tag lightRed">사용 불가</span>
+								</td>
+							</tr>
+							<tr onclick="detail(this,'default');">
+								<td>1</td>
+								<td>2024.09.05</td>
+								<td>고객 경영팀</td>
+								<td>대리</td>
+								<td>홍길동</td>
+								<td>010-4656-4565</td>
+								<td>사용자</td>
+								<td>hong3</td>
+								<td>
+									<span class="tag ">미사용</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--//tblBody-->
+					<div class="tblFooter">
+						<div class="paging">
+							<div class="prev">
+								<button type="button" class="max" disabled></button>
+								<button type="button" disabled></button>
+							</div>
+							<ul>
+								<!-- 페이징 활성화 : a addClass('on') -->
+								<li><a href="javascript:;" class="on">1</a></li>
+								<li><a href="javascript:;">2</a></li>
+								<li><a href="javascript:;">3</a></li>
+								<li><a href="javascript:;">4</a></li>
+							</ul>
+							<div>
+								<button type="button"></button>
+								<button type="button" class="max"></button>
+							</div>
+						</div>
+					</div>
+					<!--//tblFooter-->
+				</div>
+				<!--//tbl-->
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+	
+    <!-------------------------------- popup incloude -->
+    <!-- 비밀번호초기화 -->
+    <section class="pop " id="p_resetPw">
+	<div class="alertCon">
+		<div class="alerHd">
+			<i class="que"></i>
+			<div class="alertTxt">
+				<strong>비밀번호를 변경하시겠습니까?</strong>
+				<p>8~16자리의 영문, 숫자로 입력해주세요.</p>
+			</div>
+		</div>
+		<ul class="boxUl">
+			<li>계정 ID와 동일한 문구는 입력하지 마세요.</li>
+			<li>동일 단어 또는 숫자를 2회 이상 반복하지 마세요.</li>
+			<li>개인 신상 및 부서 명칭 등은 입력하지 마세요.</li>
+			<li>직전 5개 패스워드를 입력하지 마세요.</li>
+		</ul>
+		<div class="alertBody">
+			<ul class="form">
+				<li class="ness">
+					<label>새 비밀번호</label>
+					<div class="ipt focus">
+						<input type="password" onkeyup="resetPwVaild(this,'pw1');" id="changePw1">
+					</div>
+				</li><li class="ness">
+					<label>새 비밀번호 확인</label>
+					<div class="ipt">
+						<input type="password" onkeyup="resetPwVaild(this,'pw2');">
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="alerFooter">
+			<button type="button" class="btn-l" onclick="popClose(this);">취소</button>
+			<button type="button" class="btn-b savePop" onclick="savResetPw(this);" disabled="">
+				<i class="ico-chk wh"></i>초기화 하기
+			</button>
+		</div>
+		<p class="cmt open err"><i></i>계정 사용자에게 임시 비밀번호를 전달해 주세요.</p>
+	</div>
+</section>
+<!--//비밀번호 초기화-->
+	<!-- 조직관리 -->
+	
+<section class="pop page" id="p_orgAdmin">
+	<div class="popBox">
+		<div class="popCon">
+			<div class="popHd">
+				<h2>조직 관리</h2>
+				<a href="javascript:;" class="popClose"></a>
+			</div>
+			<div class="popBody">
+				<div class="formWrap">
+					<div class="formGroup">
+						<div class="formHd">
+							<h2>부서</h2>
+							<p>조직의 부서를 설정해 보세요.</p>
+						</div>
+						<!--empty-->
+						<div class="empty" id="emptyGroup">
+							<i></i>
+							<dl>
+								<dt>등록된 조직이 없습니다.</dt>
+								<dd>부서를 추가해 보세요.</dd>
+							</dl>
+							<div>
+								<button type="button" class="btn-l orange500" onclick="addGroupFrist(this);"><i class="ico-plus orange500"></i>부서 추가</button>
+							</div>
+						</div>
+						<!--//empty-->
+						<div class="tbl" id="tblGroup">
+							<div class="tblTop">
+								<div class="total">총 <strong id="countGroup">19</strong> 개</div>
+								<button type="button" class="btn-l" onclick="addGroup();"><i class="ico-plus"></i>부서 추가</button>
+							</div>
+							<ul class="formDrag" id="groupList">
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="고객 경영팀"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="고객 센터"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--//부서-->
+					<div class="formGroup">
+						<div class="formHd">
+							<h2>직급</h2>
+							<p>조직의 직급을 설정해 보세요.</p>
+						</div>
+						<!--empty-->
+						<div class="empty" id="emptyPosition">
+							<i></i>
+							<dl>
+								<dt>등록된 조직이 없습니다.</dt>
+								<dd>부서를 추가해 보세요.</dd>
+							</dl>
+							<div>
+								<button type="button" class="btn-l orange500" onclick="addPositioFrist(this);"><i class="ico-plus orange500"></i>직급 추가</button>
+							</div>
+						</div>
+						<!--//empty-->
+						<div class="tbl" id="tblPosition">
+							<div class="tblTop">
+								<div class="total">총 <strong id="countPosition">19</strong> 개</div>
+								<button type="button" class="btn-l" onclick="addPosition();"><i class="ico-plus"></i>직급 추가</button>
+							</div>
+							<ul class="formDrag" id="positionList">
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="상담사"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="센터장"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="팀원"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="팀장"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--//부서-->
+				</div>
+				<!--//formWrap-->
+			</div>
+			<!--//popBody-->
+			<div class="popFooter">
+				<span></span>
+				<!-- '저장' 클릭시, 빈값은 저장 하지 않음 -->
+				<button type="button" class="btn-b savePop" onclick="saveOrgAdmin(this);" id="saveOrgAdmin" ><i class="ico-chk"></i>저장</button>
+			</div>
+			<!--//popFooter-->
+		</div>
+	</div>
+</section>
+<!--//조직 관리-->
+
+
+<script>
+
+	/*----------팝업 open */
+	function orgAdmin(){
+				$('#p_orgAdmin').addClass('open')
+			}
+	/*----------저장 */
+	function saveOrgAdmin(obj){
+				popClose(obj);
+				toast('저장되었습니다.')
+			}
+
+			/*----------부서 */
+			/*total*/
+			function groupCount(){
+				var lengthGroup = $('#groupList li').length;
+				$('#countGroup').text(lengthGroup);
+			}
+
+			groupCount();
+
+			/*----------계정관리 권한 부여 */
+			$('[name="permissionsType"]').click(function(){
+				$('#chkuserAccountAccess').hide();
+				if( $('#permissionsType2').is(':checked') == true ){
+					$('#chkuserAccountAccess').show();
+				}
+			});
+
+			
+
+			/*최초 추가*/
+			function addGroupFrist(obj){
+				$('#emptyGroup').removeClass('open')
+				$('#tblGroup').show();
+
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#groupList').append(html);
+
+				$('#countGroup').text('1');
+
+			}
+
+			/*---추가*/
+			function addGroup(){
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#groupList').append(html);
+				$('input, select').handleFocusBlur();
+
+				$('.formDrag .btn-close').click(function(){
+					$(this).parents('li').remove();
+				});
+
+
+				groupCount();
+			}
+
+			/*---삭제*/
+			$('#groupList .btn-close').click(function(){
+
+				dragDelete(this);
+
+				var length = $('#groupList li').length;
+				if( length === 0){
+					$('#emptyGroup').addClass('open')
+				}
+
+				groupCount();
+
+			});
+
+			
+
+			/*----------직급*/
+			/*total*/
+			function positionCount(){
+				var lengthPosition = $('#positionList li').length;
+				$('#countPosition').text(lengthPosition);
+			}
+
+			positionCount();
+
+			/*최초 추가*/
+			function addPositioFrist(obj){
+				$('#emptyPosition').removeClass('open')
+				$('#tblPosition').show();
+
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#positionList').append(html);
+
+				$('#countPosition').text('1');
+			}
+
+			function addPosition(){
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#positionList').append(html)
+				$('input, select').handleFocusBlur();
+
+				$('.formDrag .btn-close').click(function(){
+					$(this).parents('li').remove();
+				});
+
+				positionCount();
+			}
+
+			/*---삭제*/
+			$('#positionList .btn-close').click(function(){
+				
+				dragDelete(this);
+
+				var length = $('#positionList li').length;
+				if( length === 0){
+					$('#emptyPosition').addClass('open')
+				}else{
+
+				}
+
+				positionCount();
+				
+
+			});
+</script>
+	<!-- 계정상세 -->
+	<section class="pop page " id="p_account">
+	<div class="popBox">
+		<div class="popCon">
+			<div class="popHd">
+				<h2>계정 <span class="popType">상세</span></h2>
+				<a href="javascript:;" class="popClose"></a>
+			</div>
+			<div class="popBody">
+				<div class="formWrap">
+					<div class="formGroup">
+						<div class="formHd">
+							<h2>계정</h2>
+							<p>계정 정보를 입력해 주세요.</p>
+							<!-- 사용 여부 -->
+							<button type="button" class="toggle" id="toggleAccount"><span class="toggleBar"></span></button>
+							<!--비번 초기화로 잠겼을 때 cmt addClass('open') -->
+							<p class="cmt err" id="accountLockTxt"><i></i><span>계정 사용 불가<br>[비밀번호 초기화] 해주세요.</span></p>
+						</div>
+						<div class="formBody">
+							<ul class="form">
+								<li class="ness"  id="accountNewId">
+									<label>아이디</label>
+									<div class="iptArea">
+										<div class="ipt focus">
+											<input type="text" onkeyup="accountVaild(this,'userId');" id="userId">
+										</div>
+										<p class="cmt err"><i></i><span>이미 사용중인 아이디입니다.</span></p>
+									</div>
+								</li>
+								<li style="display:none;" id="accountDetailId">
+									<label>아이디</label>
+									<div class="ipt readonly">
+										<input type="text" value="hong3">
+									</div>
+								</li>
+								<li class="ness">
+									<label>비밀번호</label>
+									<div class="iptArea">
+										<div class="ipt">
+											<input type="password"  onkeyup="accountVaild(this,'userPw');" >
+										</div>
+									</div>
+								</li>
+								<li>
+									<label>권한
+										<button type="button" class="btn-icon" onclick="quePermission(this);">
+											<i class="ico-question i16"></i>
+										</button>
+									</label>
+									<div class="chkArea">
+										<span class="chk">
+											<input type="radio" id="permissionsType1" name="permissionsType" checked>
+											<label for="permissionsType1">
+												<span class="chkShape"></span>
+												<span class="chkTxt">사용자</span>
+											</label>
+										</span>
+										<span class="chk">
+											<input type="radio" id="permissionsType2" name="permissionsType">
+											<label for="permissionsType2">
+												<span class="chkShape"></span>
+												<span class="chkTxt">관리자</span>
+											</label>
+										</span>
+										<span class="chk">
+											<input type="radio" id="permissionsType3" name="permissionsType">
+											<label for="permissionsType3">
+												<span class="chkShape"></span>
+												<span class="chkTxt">슈퍼 관리자</span>
+											</label>
+										</span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--//계정-->
+					<div class="formGroup">
+						<div class="formHd">
+							<h2>조직</h2>
+							<p>조직을 선택해 주세요.</p>
+						</div>
+						<div class="formBody">
+							<ul class="form">
+								<li>
+									<label>부서</label>
+									<div class="ipt" style="width:256px;">
+										<select>
+											<option>고객 경영팀</option>
+											<option>고객 센터</option>
+										</select>
+									</div>
+								</li>
+								<li>
+									<label>직급</label>
+									<div class="ipt"  style="width:256px;">
+										<select>
+											<option>상담사</option>
+											<option>센터장</option>
+											<option>팀원</option>
+											<option>팀장</option>
+										</select>
+									</div>
+									<span class="chk m-t4" id="chkuserAccountAccess" style="display:none;">
+										<input type="checkbox" id="userAccountAccess" name="userAccountAccess">
+										<label for="userAccountAccess">
+											<span class="chkShape"></span>
+											<span class="chkTxt">‘온라인센터’의 ‘사용자’ 계정 관리 권한을 부여합니다.</span>
+										</label>
+									</span>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--//조직-->
+					<div class="formGroup">
+						<div class="formHd">
+							<h2>사용자</h2>
+							<p>사용자 정보를 입력해 주세요.</p>
+						</div>
+						<div class="formBody">
+							<ul class="form">
+								<li class="ness">
+									<label>이름</label>
+									<div class="ipt">
+										<input type="text" onkeyup="accountVaild(this,'userName');">
+									</div>
+								</li>
+								<li class="ness">
+									<label>연락처</label>
+									<div class="ipt">
+										<input type="text" onkeyup="accountVaild(this,'userPhone');" oninput="phone(this);">
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--//사용자-->
+				</div>
+				<!--//formWrap-->
+			</div>
+			<!--//popBody-->
+			<div class="popFooter">
+				<div>
+					<button type="button" class="btn-lightOrange" onclick="resetPw(this);" id="resetPw"><i class="ico-lock"></i>비밀번호 초기화</button>
+				</div>
+				<div class="btnArea">
+					<button type="button" class="btn-l" onclick="deleteAccount(this);" id="deleteAccount">삭제</button>
+					<button type="button" class="btn-b savePop" onclick="saveAccount(this);" id="saveAccount" disabled><i class="ico-chk"></i>저장</button>
+				</div>
+			</div>
+			<!--//popFooter-->
+		</div>
+	</div>
+</section>
+<!--//계정 상세-->
+
+<script>
+	/*----------추가*/
+	function add(){
+				$('#p_account').addClass('open');
+
+				$('#resetPw').hide();
+				$('#deleteAccount').hide();
+				$('#accountDetailId').hide();
+				$('#accountNewId').show();
+				$('#saveAccount').prop('disabled', true);
+				$('#userId').focus();
+				$('.popType').text('등록')
+				$('#toggleAccount').hide();
+			}
+
+			/*----------상세*/
+			function detail(obj, type){
+				$('#p_account').addClass('open')
+				$('#resetPw').show();
+				$('#deleteAccount').show();
+				$('#accountDetailId').show();
+				$('#accountNewId').hide();
+				$('#saveAccount').prop('disabled', false);
+				$('.popType').text('상세')
+				$('#toggleAccount').show();
+
+				if( type == 'default' ){
+					$('#toggleAccount').show();
+					$('#accountLockTxt').removeClass('open');
+					console.log('aa')
+				}else if( type == 'lock' ){
+					$('#toggleAccount').hide();
+					$('#accountLockTxt').addClass('open');
+					console.log('bb')
+				}
+				
+			}
+
+			/*----------vaildation*/
+			function accountVaild(obj, type){
+				var ipt = $(obj).val();
+				if( type == 'userId' ){
+					vaildChk(obj, "Y24892","동일한 ID가 있습니다.", ipt.length < 4 );
+				}else if( type == 'userPw' ){
+					vaildChk(obj, "","", ipt.length < 4 );
+				}else if( type == 'userName' ){
+					vaildChk(obj, "","", ipt.length < 2 );
+				}else if( type == 'userPhone' ){
+					vaildChk(obj, "","", ipt.length < 4 );
+				}
+			}
+
+
+			/*----------권한 question*/
+			function quePermission(obj){
+				var offset = $(obj).offset();
+				var width = $(obj).width();
+				var height = $(obj).height();
+				console.log(offset)
+				$('#p_quePermission').addClass('open').css({
+					left:offset.left + width +  8 +'px',
+					top:offset.top - height 
+				})
+			}
+
+			/*----------비밀번호 초기화*/
+			function resetPw(){
+				$('#p_resetPw').addClass('open');
+				$('#changePw1').focus();
+			}
+
+			//초기화하기 버튼 활성화, 비활성화
+			function resetPwVaild(obj, type){
+
+				var ipt = $(obj).val();
+				
+				if( type == 'pw1' ){
+					vaildChk(obj, "","", ipt.length < 4 );
+				}else if( type == 'pw2' ){
+					vaildChk(obj, "","", ipt.length < 4 );
+				}
+			}
+
+			function savResetPw(obj){
+				popClose(obj);
+				toast('비밀번호가 초기화되었습니다.')
+			}
+</script>	
+	<!-- 권한 -->
+	<section class="modal" id="p_quePermission">
+	<div class="modalCon">
+		<div class="chkArea row">
+			<span class="chk">
+				<input type="checkbox" id="permissionInfo1" name="permissionInfo" checked disabled>
+				<label for="permissionInfo1">
+					<span class="chkShape noLine"></span>
+					<span class="chkTxt"><strong>사용자</strong><span class="chkTxtSub">대시보드, 챗봇</span></span>
+				</label>
+			</span>
+			<span class="chk">
+				<input type="checkbox" id="permissionInfo2" name="permissionInfo" checked disabled>
+				<label for="permissionInfo2">
+					<span class="chkShape noLine"></span>
+					<span class="chkTxt"><strong>관리자</strong><span class="chkTxtSub">대시보드, 챗봇, 페르소나, 지식베이스, 통계</span></span>
+				</label>
+			</span>
+			<span class="chk">
+				<input type="checkbox" id="permissionInfo3" name="permissionInfo" checked disabled>
+				<label for="permissionInfo3">
+					<span class="chkShape noLine"></span>
+					<span class="chkTxt"><strong>슈퍼 관리자</strong><span class="chkTxtSub">모든 메뉴 접근 가능</span></span>
+				</label>
+			</span>
+		</div>
+	</div>
+</section>
+<!--//권한 정보-->
+
+
+
+    <!-------------------------------- script -->
+    <script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+
+	</body>
+	</html>

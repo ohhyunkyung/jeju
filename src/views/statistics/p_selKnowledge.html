@@ -1,0 +1,146 @@
+<section class="pop" id="p_selKnowledge">
+	<div class="popBox" style="width:1500px; height: 90%; ">
+		<div class="popHd">
+			<h2>키워드  상세</h2>
+			<a href="javascript:;" class="popClose"></a>
+		</div>
+		<div class="popBody gap24">
+			<div class="flex scrollN">
+				<div class="chatbot chatPreview defaultSet minHInit">
+					<div class="chatHd"></div>
+					<div class="satisfaction" id="chatSatisfaction" style="display: none;">
+						<div class="satisfactionCon">
+							<strong class="crOrange500">챗봇 상담이 도움되셨나요?</strong>
+							<div class="chatBtns">
+								<span><i class="ico-like"></i>네</span>
+								<span><i class="ico-like unLike"></i>아니요</span>
+							</div>
+						</div>
+					</div>
+					<div class="chatBody">
+						<div class="chatUser" style="display:inline-grid;">
+							<div class="bubble">
+								<pre>항공권 이벤트 있나요?</pre>
+							</div>
+						</div>
+						<!--//질문-->
+						<div>
+							<div class="chatProfile">
+								<!-- 디폴트 : ico-chatbotDefault.svg-->
+								<img src="../../images/icon/ico-chatbot.svg">
+								하이제코
+							</div>
+							<div class="bubble">
+								<pre>제주항공에서 진행중인 이벤트가 궁금하신가요? 아래의 내용을 확인해보세요!</pre>
+							</div>
+						</div>
+						<!--//답변-->
+					</div>
+					<div class="flexC justifyC m-t12"><button type="button" class="btn-l" id="getChatAll" onclick="getChatAll();">전체 채팅 보기</button></div>
+				</div>
+				<div class="tbl">
+					<div class="tblTop">
+						<div class="total">총 <strong>19</strong> 개</div>
+					</div>
+					<!--//tblTop-->
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="70"> <!--순위-->
+								<col width="70"> <!--코드-->
+								<col width="160"> <!--카테고리-->
+								<col width="*"> <!--내용-->
+								<col width="140"> <!--상세-->
+							</colgroup>
+							<tbody><tr>
+								<th>순위</th>
+								<th>코드</th>
+								<th><button type="button" class="sort"><span>카테고리</span><i class="ico-sort"></i></button></th>
+								<th>내용</th>
+								<th></th>
+							</tr>
+						</tbody></table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody">
+						<table>
+							<colgroup>
+								<col width="70"> <!--순위-->
+								<col width="70"> <!--코드-->
+								<col width="160"> <!--카테고리-->
+								<col width="*"> <!--내용-->
+								<col width="140"> <!--상세-->
+							</colgroup>
+							<!-- 테스트 -->
+							<tbody><tr>
+								<td>1</td>
+								<td>K4</td>
+								<td>회원</td>
+								<td>
+									<strong>항공권 예약 변경 및 취소는 어떻게 하나요?</strong>
+									<div class="tdKeyword">
+										<div>
+											<pre><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span></pre>
+										</div>
+										<button type="button" class="btn-l btn-icon" onclick="moreKeyword(this);"><i class="ico-arw-center"></i></button>
+									</div>
+								</td>
+								<td><button type="button" class="btn-b">지식베이스 보기</button></td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>K4</td>
+								<td>회원</td>
+								<td>
+									<strong>항공권 예약 변경 및 취소는 어떻게 하나요?</strong>
+									<div class="tdKeyword">
+										<div>
+											<pre><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span></pre>
+										</div>
+										<button type="button" class="btn-l btn-icon" onclick="moreKeyword(this);"><i class="ico-arw-center"></i></button>
+									</div>
+								</td>
+								<td><button type="button" class="btn-b">지식베이스 보기</button></td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>K4</td>
+								<td>회원</td>
+								<td>
+									<strong>항공권 예약 변경 및 취소는 어떻게 하나요?</strong>
+									<div class="tdKeyword">
+										<div>
+											<pre><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span><span>항공권 구매</span></pre>
+										</div>
+										<button type="button" class="btn-l btn-icon" onclick="moreKeyword(this);"><i class="ico-arw-center"></i></button>
+									</div>
+								</td>
+								<td><button type="button" class="btn-b">지식베이스 보기</button></td>
+							</tr>
+						</tbody></table>
+					</div>
+					<!--//tblBody-->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!--//질문 내역-->
+
+<script>
+	//상세보기
+	function knowledgeDetail(obj, type){
+
+$('#p_selKnowledge').addClass('open');
+
+if( type == 'default'){ //1개일때
+	$('#getChatAll').hide(); //전체 채팅내역 버튼 hide
+
+
+}else if( type == 'multi' ){ //2개이상일때
+	
+	$('#getChatAll').show(); //전체 채팅내역 버튼 show
+	
+}
+}
+</script>

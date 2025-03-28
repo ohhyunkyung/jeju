@@ -1,0 +1,272 @@
+
+<section class="pop page" id="p_orgAdmin">
+	<div class="popBox">
+		<div class="popCon">
+			<div class="popHd">
+				<h2>조직 관리</h2>
+				<a href="javascript:;" class="popClose"></a>
+			</div>
+			<div class="popBody">
+				<div class="formWrap">
+					<div class="formGroup">
+						<div class="formHd">
+							<h2>부서</h2>
+							<p>조직의 부서를 설정해 보세요.</p>
+						</div>
+						<!--empty-->
+						<div class="empty" id="emptyGroup">
+							<i></i>
+							<dl>
+								<dt>등록된 조직이 없습니다.</dt>
+								<dd>부서를 추가해 보세요.</dd>
+							</dl>
+							<div>
+								<button type="button" class="btn-l orange500" onclick="addGroupFrist(this);"><i class="ico-plus orange500"></i>부서 추가</button>
+							</div>
+						</div>
+						<!--//empty-->
+						<div class="tbl" id="tblGroup">
+							<div class="tblTop">
+								<div class="total">총 <strong id="countGroup">19</strong> 개</div>
+								<button type="button" class="btn-l" onclick="addGroup();"><i class="ico-plus"></i>부서 추가</button>
+							</div>
+							<ul class="formDrag" id="groupList">
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="고객 경영팀"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="고객 센터"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--//부서-->
+					<div class="formGroup">
+						<div class="formHd">
+							<h2>직급</h2>
+							<p>조직의 직급을 설정해 보세요.</p>
+						</div>
+						<!--empty-->
+						<div class="empty" id="emptyPosition">
+							<i></i>
+							<dl>
+								<dt>등록된 조직이 없습니다.</dt>
+								<dd>부서를 추가해 보세요.</dd>
+							</dl>
+							<div>
+								<button type="button" class="btn-l orange500" onclick="addPositioFrist(this);"><i class="ico-plus orange500"></i>직급 추가</button>
+							</div>
+						</div>
+						<!--//empty-->
+						<div class="tbl" id="tblPosition">
+							<div class="tblTop">
+								<div class="total">총 <strong id="countPosition">19</strong> 개</div>
+								<button type="button" class="btn-l" onclick="addPosition();"><i class="ico-plus"></i>직급 추가</button>
+							</div>
+							<ul class="formDrag" id="positionList">
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="상담사"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="센터장"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="팀원"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+								<li>
+									<a href="javascript:;" class="btn-drag"></a>
+									<div class="iptArea">
+										<div class="ipt"><input type="text" value="팀장"></div>
+									</div>
+									<a href="javascript:;" class="btn-close"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<!--//부서-->
+				</div>
+				<!--//formWrap-->
+			</div>
+			<!--//popBody-->
+			<div class="popFooter">
+				<span></span>
+				<!-- '저장' 클릭시, 빈값은 저장 하지 않음 -->
+				<button type="button" class="btn-b savePop" onclick="saveOrgAdmin(this);" id="saveOrgAdmin" ><i class="ico-chk"></i>저장</button>
+			</div>
+			<!--//popFooter-->
+		</div>
+	</div>
+</section>
+<!--//조직 관리-->
+
+
+<script>
+
+	/*----------팝업 open */
+	function orgAdmin(){
+				$('#p_orgAdmin').addClass('open')
+			}
+	/*----------저장 */
+	function saveOrgAdmin(obj){
+				popClose(obj);
+				toast('저장되었습니다.')
+			}
+
+			/*----------부서 */
+			/*total*/
+			function groupCount(){
+				var lengthGroup = $('#groupList li').length;
+				$('#countGroup').text(lengthGroup);
+			}
+
+			groupCount();
+
+			/*----------계정관리 권한 부여 */
+			$('[name="permissionsType"]').click(function(){
+				$('#chkuserAccountAccess').hide();
+				if( $('#permissionsType2').is(':checked') == true ){
+					$('#chkuserAccountAccess').show();
+				}
+			});
+
+			
+
+			/*최초 추가*/
+			function addGroupFrist(obj){
+				$('#emptyGroup').removeClass('open')
+				$('#tblGroup').show();
+
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#groupList').append(html);
+
+				$('#countGroup').text('1');
+
+			}
+
+			/*---추가*/
+			function addGroup(){
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#groupList').append(html);
+				$('input, select').handleFocusBlur();
+
+				$('.formDrag .btn-close').click(function(){
+					$(this).parents('li').remove();
+				});
+
+
+				groupCount();
+			}
+
+			/*---삭제*/
+			$('#groupList .btn-close').click(function(){
+
+				dragDelete(this);
+
+				var length = $('#groupList li').length;
+				if( length === 0){
+					$('#emptyGroup').addClass('open')
+				}
+
+				groupCount();
+
+			});
+
+			
+
+			/*----------직급*/
+			/*total*/
+			function positionCount(){
+				var lengthPosition = $('#positionList li').length;
+				$('#countPosition').text(lengthPosition);
+			}
+
+			positionCount();
+
+			/*최초 추가*/
+			function addPositioFrist(obj){
+				$('#emptyPosition').removeClass('open')
+				$('#tblPosition').show();
+
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#positionList').append(html);
+
+				$('#countPosition').text('1');
+			}
+
+			function addPosition(){
+				var html = '<li>';
+				html += '<a href="javascript:;" class="btn-drag"></a>';
+				html += '<div class="iptArea">';
+				html += '<div class="ipt"><input type="text" autofocus></div>';
+				html += '</div>';
+				html += '<a href="javascript:;" class="btn-close"></a>';
+				html += '</li>';
+
+				$('#positionList').append(html)
+				$('input, select').handleFocusBlur();
+
+				$('.formDrag .btn-close').click(function(){
+					$(this).parents('li').remove();
+				});
+
+				positionCount();
+			}
+
+			/*---삭제*/
+			$('#positionList .btn-close').click(function(){
+				
+				dragDelete(this);
+
+				var length = $('#positionList li').length;
+				if( length === 0){
+					$('#emptyPosition').addClass('open')
+				}else{
+
+				}
+
+				positionCount();
+				
+
+			});
+</script>

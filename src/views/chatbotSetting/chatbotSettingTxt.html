@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no,address=no,email=no">
+	<!-- 캐쉬 삭제  -->
+	<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<!-- 캐쉬 삭제  -->
+	<title>챗봇 설정</title>
+	<!------------------------------ favicon-->
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="../../static/images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="../../static/images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../../static/images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../static/images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../../static/images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../../static/images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../../static/images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../../static/images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../static/images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../static/images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../../static/images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="../../static/images/favicon//manifest.json"> 
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../../static/images/favicon//ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">-->
+
+	<!------------------------------ css-->
+	<link rel="stylesheet" href="./../../css/common.css"/>
+	<link rel="stylesheet" href="./../../css/page.css"/>
+</head>
+<body>
+	<div class="wrap">
+		<header>
+    <a href="javascript:;" onclick="dashboard();"><i class="logo"></i></a>
+    <div class="userInfo">
+        <div class="userInfoChatbot">
+            <div class="gap8 m-r20">
+                <i class="ico-chatbot"></i>
+                <span>챗봇</span>
+            </div>
+            <div class="gap12">
+                <button type="button" class="btn-blue500" onclick="chatbotTest(this);">테스트 챗봇</button>
+                <button type="button" class="btn-gray800" onclick="chatbot(this);">운영 챗봇</button>
+            </div>
+        </div>
+        <span class="userInfoNm">
+            <span class="m-r12">
+                <a href="javascript:;" class="btn-link" onclick="mypage(this);">김제주님</a> 반갑습니다.
+            </span>
+            <i class="ico-smile"></i>
+        </span>
+        <button type="button" class="btn-icon" onclick="logout();"><i class="ico-logout"></i></button>
+    </div>
+</header>
+<!--//header-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+		<div class="contents">
+			<div class="nav">
+    <ul>
+        <!-- 메뉴 active : a addClass('active') -->
+        <li><a href="javascript:;" onclick="dashboard();"><i></i>대시보드</a></li>
+        <li>
+            <a href="javascript:;"><i></i>챗봇 설정</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="chatbotSetting();">챗봇 설정</a></li>
+                <li><a href="javascript:;" onclick="chatbotSettingTxt();">문구 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>페르소나</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="persona();" >페르소나 현황</a></li>
+                <li><a href="javascript:;" onclick="personaApprove();">승인 요청 내역</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>지식 베이스</a>
+            <ul>
+                <li><a href="javascript:;" onclick="knowledge();">지식 베이스 현황</a></li>
+                <li><a href="javascript:;" onclick="knowledgeApprove();">승인 요청 내역</a></li>
+                <li><a href="javascript:;" onclick="knowledgeKeyword();">키워드</a></li>
+                <li><a href="javascript:;" onclick="knowledgeUnlearned();">미학습 질문</a></li>
+                <li><a href="javascript:;" onclick="knowledgeIncorrect();">오답변</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>통계</a>
+            <ul>
+                <li><a href="javascript:;" onclick="statisticsChat();">세션</a></li>
+                <li><a href="javascript:;" onclick="statisticsQuestion();">질문</a></li>
+                <li><a href="javascript:;" onclick="statisticsSatisfaction();">만족도 </a></li>
+                <li><a href="javascript:;" onclick="statisticsKeyword();">키워드 </a></li>
+                <li><a href="javascript:;" onclick="statisticsChatTotal();">채팅 내역 </a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;" onclick="accountMng();" ><i></i>계정 관리</a></li>
+    </ul>
+</div>
+<!--//nav-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+			<div class="pages">
+				<div class="title-page">
+					<h1>챗봇 문구 설정</h1>
+					<div class="btnArea">
+						<p class="cmt open"><i></i><span>언어별 빈 값일 경우 <strong class="crOrange500">한국어</strong>로 표기됩니다.</span></p>
+						<button type="button" class="btn-l" onclick="setBasicLang();"><i class="ico-setting "></i>기본 언어 변경</button>
+					</div>
+				</div>
+				<!--기본 설정-->
+				<div class="flex gap48 scrollN">
+					<ul class="tab2 col" id="tab">
+						<li><a href="javascript:;" class=" on">기본 문구<span>2</span></a></li>
+						<li><a href="javascript:;">대화 생성 중단<span>2</span></a></li>
+						<li><a href="javascript:;">평점 관련<span>4</span></a></li>
+						<li><a href="javascript:;">세션 관련<span>2</span></a></li>
+						<li><a href="javascript:;">오류 관련<span>1</span></a></li>
+						<li><a href="javascript:;">상담 관련<span>7</span></a></li>
+					</ul>
+					<div class="tabCon">
+						<div class="formWrap flex1 on">
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>질문 입력창</h2>
+									<p>질문 입력창 placeholder 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'queTxt')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex1.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="전송할 메시지를 입력해주세요.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="こちらにメッセージをお送りください。">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="Please enter the message you wish to send.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>알럿 확인 버튼</h2>
+									<p>알럿 표출 시 확인 버튼명입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'comfTxt')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex11.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="확인">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="確認">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="Confirm">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>민감 정보 안내</h2>
+									<p>고객이 민감 정보 입력시 발생되는 알럿 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex12.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="개인 정보로 의심되는 내용이 포함되어 있습니다. 민감 정보는 상담이 불가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="個人情報と疑われる内容が含まれています。 続けますか？">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="The content appears to contain personal information. Do you wish to proceed?">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+						</div>
+						<!--//기본 문구-->
+						<div class="formWrap flex1 ">
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>대화 생성 중단 버튼</h2>
+									<p>GPT 답변 중 중단이 필요할 때 클릭하는  버튼명 입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'stopBtn')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex2.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="대화 생성 중단">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="対話作成中断">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="Stop Generate">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>대화 생성 중단 답변</h2>
+									<p>대화 생성 중단 버튼 클릭 시 답변 채팅에 표기되는 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'stopBtnChat')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex3.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="대화 생성이 중단되었습니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="回答の生成中に中断されました。">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="Answer generation stopped.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+						</div>
+						<!--//대화생성중단-->
+						<div class="formWrap flex1 ">
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>평점 안내 메시지</h2>
+									<p>평점 안내 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'starInfo')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex4.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="챗봇 서비스는 어떠셨나요? 별점으로 평가해 주세요.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="チャットボットサービスはいかがでしたか？ 星で評価してください。">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="How was the chatbot service? Please rate it with stars.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>평점 메시지 입력창</h2>
+									<p>평점 메시지 입력창 placeholder 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'starTxt')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex5.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="개선 및 만족스러웠던 내용을 입력해 주세요.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="改善点や満足した点を入力してください。">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="Please enter the improvements and aspects that were satisfactory.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>평점 팝업 닫기 버튼</h2>
+									<p>평점 팝업을 닫을 때 클릭하는 버튼명입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'starClose')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex7.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="다음에">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="次へ">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="Next time">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>평점 완료 버튼</h2>
+									<p>평점 완료 시 클릭하는 버튼명입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'starApply')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex6.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="평가 완료">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="評価完了">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text"value="Evaluation Complete">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+						</div>
+						<!--//평점 관련-->
+						<div class="formWrap flex1 ">
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>1일 최대 세션 안내</h2>
+									<p>1일 최대 세션 이상 접속 시 발생되는 알럿 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'maxDayAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex9.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>현재 문의량 증가로 원활한 답변이 어려움을 양해부탁드립니다. 다음날 재 문의주시거나 온라인 상담(Q&A)을 남겨주시면 빠른 시일내에 답변드리도록 하겠습니다. 불편을 드려 죄송합니다.
+													</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>本日は多くのお問い合わせをいただいており、ご返答にかなりの時間を要しております、予めご了承いただけますと幸いです。翌日にもう一度お問合せしていただくか、オンライン相談(Q&A)を残していただけましたら、なるべく早くご返答させていただきます。 ご不便をおかけしまして申し訳ございません。</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>Due to high inquiry volume today, responses may be delayed. Please try again tomorrow or leave a message in our online Q&A, and we’ll get back to you as soon as possible. We apologize for the inconvenience.</textarea>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>1회 최대 세션 안내</h2>
+									<p>1회 최대 세션 이상 접속 시 발생되는 알럿 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'maxAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex8.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>최대 가능한 채팅 수가 초과되어 챗봇이 종료됩니다. 더 궁금하신것이 있다면 다시 접속해주세요.</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>可能なチャット数を超えた為、チャットボットが終了します。他にご質問がありましたら、再度接続してください。</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>The maximum number of chats has been reached, and the session will now close. Please reconnect to continue.</textarea>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+						</div>
+						<!--//세션 관련-->
+						<div class="formWrap flex1 ">
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>서버 오류 챗봇 메시지</h2>
+									<p>접속 오류 시 발생되는 채팅 문구입니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex10.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>현재 문의량 증가로 원활한 답변이 어려움을 양해부탁드립니다. 다음날 재 문의주시거나 온라인 상담(Q&A)을 남겨주시면 빠른 시일내에 답변드리도록 하겠습니다. 불편을 드려 죄송합니다.</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>本日は多くのお問い合わせをいただいており、ご返答にかなりの時間を要しております、予めご了承いただけますと幸いです。翌日にもう一度お問合せしていただくか、オンライン相談(Q&A)を残していただけましたら、なるべく早くご返答させていただきます。 ご不便をおかけしまして申し訳ございません。</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>Due to high inquiry volume today, responses may be delayed. Please try again tomorrow or leave a message in our online Q&A, and we’ll get back to you as soon as possible. We apologize for the inconvenience.</textarea>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+						</div>
+						<!--//오류 관련-->
+						<div class="formWrap flex1 ">
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>상담원 연결 운영 시간 외</h2>
+									<p>운영 시간 외 상담원 연결 버튼 클릭 시 표출됩니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex13.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="상담원 연결이 불가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="상담원 연결이 불가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="상담원 연결이 불가능합니다.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구1-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>상담원 연결 운영 시간 안내</h2>
+									<p>운영 시간 외 상담원 연결 버튼 클릭 시 표출됩니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex14.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>고객센터 운영 시간 매일  09:00 ~ 18:00 *한국 시간 기준</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>고객센터 운영 시간 매일  09:00 ~ 18:00 *한국 시간 기준</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>고객센터 운영 시간 매일  09:00 ~ 18:00 *한국 시간 기준</textarea>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구2-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>1:1 문의 접수 유도</h2>
+									<p>운영 시간 외 알럿에 1:1 문의 접수 문구가 표출됩니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex15.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 문의는 24시간 접수 가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 문의는 24시간 접수 가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 문의는 24시간 접수 가능합니다.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구3-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>1:1 문의 접수 버튼</h2>
+									<p>운영 시간 외 알럿에 1:1 문의 접수 버튼이 표출됩니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex16.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 문의 접수">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 문의 접수">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 문의 접수">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구4-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>상담원 연결 PC 접근</h2>
+									<p>상담원 연결 버튼을 PC에서 클릭 시 표출됩니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex17.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="상담원 연결은 모바일에서만 가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="상담원 연결은 모바일에서만 가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="상담원 연결은 모바일에서만 가능합니다.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구5-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>채팅 상담 운영 시간 외</h2>
+									<p>운영 시간외 1:1 채팅 상담 버튼 클릭 시 표출됩니다</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex18.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 채팅 상담이 불가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 채팅 상담이 불가능합니다.">
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<input type="text" value="1:1 채팅 상담이 불가능합니다.">
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구6-->
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>1:1 채팅 운영 시간 안내</h2>
+									<p>운영 시간외 1:1 채팅 상담 버튼 클릭 시 표출됩니다.</p>
+									<div><button type="button" class="btn-b" onclick="saveTxt(this,'errAlert')"><i class="ico-chk wh"></i>저장하기</button></div>
+								</div>
+								<div class="formBody flex gap48 flex1">
+									<div class="chatTxtPreview">
+										<img src="../../static/images/chatTxt/ex19.png">
+									</div>
+									<ul class="form flex1">
+										<li class="ness">
+											<label>한국어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>고객센터 운영 시간 매일  09:00 ~ 19:00 *한국 시간 기준</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>일본어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>고객센터 운영 시간 매일  09:00 ~ 19:00 *한국 시간 기준</textarea>
+												</div>
+											</div>
+										</li>
+										<li class="">
+											<label>영어</label>
+											<div class="iptArea ">
+												<div class="ipt">
+													<textarea>고객센터 운영 시간 매일  09:00 ~ 19:00 *한국 시간 기준</textarea>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//문구7-->
+						</div>
+						<!--//상담 관련-->
+					</div>
+				</div>
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+
+
+
+
+    <!-------------------------------- popup incloude -->
+    <!-- 기본 언어 변경 -->
+    <section class="pop " id="p_setBasicLang">
+	<div class="popBox" style="width:480px;">
+		<div class="popHd">
+			<h2>기본 언어 변경</h2>
+			<a href="javascript:;" class="popClose"></a>
+		</div>
+		<div class="popBody gap32">
+			<p class="cmt open"><i></i>문구를 입력하지 않을 경우 설정한 기본 언어로 표기됩니다.</p>
+			<div class="chkArea row gap24">
+				<span class="chk">
+					<input type="radio" id="basicLangType_ko" name="basicLangType" checked>
+					<label for="basicLangType_ko">
+						<span class="chkShape"></span>
+						<span class="chkTxt">한국어</span>
+					</label>
+				</span>
+				<span class="chk">
+					<input type="radio" id="basicLangType_ja" name="basicLangType">
+					<label for="basicLangType_ja">
+						<span class="chkShape"></span>
+						<span class="chkTxt">일본어</span>
+					</label>
+				</span>
+				<span class="chk">
+					<input type="radio" id="basicLangType_en" name="basicLangType">
+					<label for="basicLangType_en">
+						<span class="chkShape"></span>
+						<span class="chkTxt">영어</span>
+					</label>
+				</span>
+			</div>
+		</div>
+		<div class="popFooter">
+			<span></span>
+			<button type="button" class="btn-b" onclick="saveBasicLang(this);"><i class="ico-chk"></i>변경하기</button>
+		</div>
+	</div>
+</section>
+<!--//기본 언어 설정--> 
+
+
+
+    <!-------------------------------- script -->
+    <script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+	<script type="text/javascript">
+
+		//tab
+		$('#tab a').click(function(){
+			var idx = $('#tab a').index($(this));
+			$('.tabCon>div').removeClass('on').eq(idx).addClass('on')
+		});
+
+		//저장하기
+		function saveTxt(obj, type){
+
+			toast('저장되었습니다.')
+
+			if( type == 'queTxt'){
+				//질문 입력창 저장
+			}else if( type == 'comfTxt'){
+				//알럿 확인 버튼 저장
+			}else if( type == 'stopBtn'){
+				//대화 생성 중단 버튼 저장
+			}else if( type == 'stopBtnChat' ){
+				//대화 생성 중단 답변 저장
+			}else if( type == 'starInfo' ){
+				//평점 안내 메시지 저장
+			}else if( type == 'starTxt' ){
+				//평점 메시지 입력창 저장
+			}else if( type == 'starClose' ){
+				//평점 팝업 닫기 버튼 저장
+			}else if( type == 'starApply' ){
+				//평점 완료 버튼 저장
+			}else if( type == 'maxDayAlert' ){
+				//1일 최대 세션 안내 저장
+			}else if( type == 'maxAlert' ){
+				//1일 최대 세션 안내 저장
+			}else if( type == 'errAlert' ){
+				//서버 오류 챗봇 메시지 저장
+			}
+		}
+
+		/*------------------기본 언어 변경*/
+		//팝업 open
+		function setBasicLang(){
+			$('#p_setBasicLang').addClass('open')
+		}
+
+		//변경 완료
+		function saveBasicLang(obj){
+			popClose(obj);
+			toast('변경되었습니다.')
+		}
+
+	</script>
+</body>
+</html>

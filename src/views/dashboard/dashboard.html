@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no,address=no,email=no">
+	<!-- 캐쉬 삭제  -->
+	<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<!-- 캐쉬 삭제  -->
+	<title>챗봇 설정</title>
+	<!------------------------------ favicon-->
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="../../static/images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="../../static/images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../../static/images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../static/images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../../static/images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../../static/images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../../static/images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../../static/images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../static/images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../static/images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../../static/images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="../../static/images/favicon//manifest.json"> 
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../../static/images/favicon//ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">-->
+
+	<!------------------------------ css-->
+	<link rel="stylesheet" href="./../../css/common.css"/>
+	<link rel="stylesheet" href="./../../css/page.css"/>
+</head>
+<body>
+	<div class="wrap">
+		<header>
+    <a href="javascript:;" onclick="dashboard();"><i class="logo"></i></a>
+    <div class="userInfo">
+        <div class="userInfoChatbot">
+            <div class="gap8 m-r20">
+                <i class="ico-chatbot"></i>
+                <span>챗봇</span>
+            </div>
+            <div class="gap12">
+                <button type="button" class="btn-blue500" onclick="chatbotTest(this);">테스트 챗봇</button>
+                <button type="button" class="btn-gray800" onclick="chatbot(this);">운영 챗봇</button>
+            </div>
+        </div>
+        <span class="userInfoNm">
+            <span class="m-r12">
+                <a href="javascript:;" class="btn-link" onclick="mypage(this);">김제주님</a> 반갑습니다.
+            </span>
+            <i class="ico-smile"></i>
+        </span>
+        <button type="button" class="btn-icon" onclick="logout();"><i class="ico-logout"></i></button>
+    </div>
+</header>
+<!--//header-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+		<div class="contents">
+			<div class="nav">
+    <ul>
+        <!-- 메뉴 active : a addClass('active') -->
+        <li><a href="javascript:;" onclick="dashboard();"><i></i>대시보드</a></li>
+        <li>
+            <a href="javascript:;"><i></i>챗봇 설정</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="chatbotSetting();">챗봇 설정</a></li>
+                <li><a href="javascript:;" onclick="chatbotSettingTxt();">문구 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>페르소나</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="persona();" >페르소나 현황</a></li>
+                <li><a href="javascript:;" onclick="personaApprove();">승인 요청 내역</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>지식 베이스</a>
+            <ul>
+                <li><a href="javascript:;" onclick="knowledge();">지식 베이스 현황</a></li>
+                <li><a href="javascript:;" onclick="knowledgeApprove();">승인 요청 내역</a></li>
+                <li><a href="javascript:;" onclick="knowledgeKeyword();">키워드</a></li>
+                <li><a href="javascript:;" onclick="knowledgeUnlearned();">미학습 질문</a></li>
+                <li><a href="javascript:;" onclick="knowledgeIncorrect();">오답변</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>통계</a>
+            <ul>
+                <li><a href="javascript:;" onclick="statisticsChat();">세션</a></li>
+                <li><a href="javascript:;" onclick="statisticsQuestion();">질문</a></li>
+                <li><a href="javascript:;" onclick="statisticsSatisfaction();">만족도 </a></li>
+                <li><a href="javascript:;" onclick="statisticsKeyword();">키워드 </a></li>
+                <li><a href="javascript:;" onclick="statisticsChatTotal();">채팅 내역 </a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;" onclick="accountMng();" ><i></i>계정 관리</a></li>
+    </ul>
+</div>
+<!--//nav-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+			<div class="pages">
+				<div class="title-page gap20">
+					<h1>Dashboard</h1>
+					<div class="search flex1">
+						<div class="flexC gap16">
+							<ul class="form">
+								<li>
+									<label>언어</label>
+									<div class="ipt">
+										<div class="chk txtOnly">
+											<input type="radio" id="langAll" name="langType" checked="">
+											<label for="langAll">전체</label>
+										</div>
+										<div class="chk txtOnly">
+											<input type="radio" id="langKo" name="langType">
+											<label for="langKo">한국어</label>
+										</div>
+										<div class="chk txtOnly">
+											<input type="radio" id="langJp" name="langType">
+											<label for="langJp">일본어 </label>
+										</div>
+										<div class="chk txtOnly">
+											<input type="radio" id="langEn" name="langType">
+											<label for="langEn">영어 </label>
+										</div>
+									</div>
+								</li>
+							</ul>
+							<div class="flexC gap12">
+								<i class="ico-date i14"></i>
+								<p>2024.08.30~ 2024.09.30</p>
+							</div>
+							<p class="cmt open"><i></i><span>최근 한달 기준</span></p>
+						</div>
+						<button type="button" class="crGray600"><i class="ico-refresh"></i>마지막 업데이트 2024.09.28 15:16</button>
+					</div>
+				</div>
+				<div class="dashCon">
+					<div class="dash1">
+						<ul>
+							<li class="dashBox">
+								<i class=""></i>
+								<dl><dt>156</dt><dd>세션 수</dd></dl>
+								<a href="javascript:;" onclick="statisticsChat();"><i class="ico-arw"></i></a>
+							</li>
+							<li class="dashBox">
+								<i class=""></i>
+								<dl><dt>156</dt><dd>세션당 평균 질문</dd></dl>
+								<a href="javascript:;" onclick="statisticsQuestion();"><i class="ico-arw"></i></a>
+							</li>
+							<li class="dashBox">
+								<i class=""></i>
+								<dl><dt>156</dt><dd>상담원 요청</dd></dl>
+								<a href="javascript:;" onclick="statisticsQuestion();"><i class="ico-arw"></i></a>
+							</li>
+							<li class="dashBox">
+								<i class=""></i>
+								<dl><dt>156</dt><dd>미학습 질문</dd></dl>
+								<a href="javascript:;" onclick="knowledgeUnlearned();"><i class="ico-arw"></i></a>
+							</li>
+							<li class="dashBox">
+								<i class=""></i>
+								<dl><dt>156</dt><dd>오답변</dd></dl>
+								<a href="javascript:;" onclick="knowledgeIncorrect();"><i class="ico-arw"></i></a>
+							</li>
+						</ul>
+					</div>
+					<!--//dash1-->
+					<div class="dash2" >
+						<div class="dashBox">
+							<div class="dashTop">
+								<p class="dashTt">일별 세션</p>
+								<dl><dt>일 평균</dt><dd>8,523</dd></dl>
+							</div>
+							<div class="dashChart"><canvas id="chartDaily"></canvas></div>
+						</div>
+						<!--//일자별-->
+						<div class="dashBox" >
+							<div class="dashTop">
+								<p class="dashTt">시간대별 누적 세션</p>
+								<dl><dt>시간 평균</dt><dd>8,523</dd></dl>
+							</div>
+							<div class="dashChart"><canvas id="chartTime"></canvas></div>
+						</div>
+						<!--//시간대별-->
+					</div>
+					<!--//dash2-->
+					<div class="dash3">
+						<div class="dashBox">
+							<div class="dashTop">
+								<p class="dashTt">키워드 검색 순위 (전체 키워드 비율로 표기)</p>
+								<a href="javascript:;" onclick="statisticsKeyword();">전체보기</a>
+							</div>
+							<div class="dashKeyword">
+								<dl><dt>1</dt><dd><strong>항공권</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>6</dt><dd><strong>이벤트</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>2</dt><dd><strong>예약</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>7</dt><dd><strong>승무원</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>3</dt><dd><strong>취소</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>8</dt><dd><strong>기종</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>4</dt><dd><strong>서비스</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>9</dt><dd><strong>제주도</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>5</dt><dd><strong>수하물</strong><span class="tag">245 / 12%</span></dd></dl>
+								<dl><dt>10</dt><dd><strong>상담원</strong><span class="tag">2,145 / 12%</span></dd></dl>
+							</div>
+						</div>
+						<!--//키워드 검색 순위-->
+						<div class="dashBox ">
+							<div class="dashTop">
+								<p class="dashTt">만족도 조사</p>
+								<a href="javascript:;" onclick="statisticsSatisfaction();">전체보기</a>
+							</div>
+							<div class="flexC wd100 gap64">
+								<div class="dashSatisfaction gap20">
+									<div class="dashChart flexInit bgGray100 bd-rd50" style="width:56px;height:56px;">
+										<canvas id="chartStatis"></canvas>
+									</div>
+									<div class="dashSatisfactionTxt">
+										<strong><span class="crOrange500">4.2점</span> / 5점</strong>
+										<p>평균 점수</p>
+									</div>
+								</div>
+								<div class="dashStar">
+									<dl>
+										<dt><i></i><i></i><i></i><i></i><i></i></dt>
+										<dd>
+											<span class="dashStarBar"><span></span></span>
+											<span class="dashStarCount">4,575</span>
+										</dd>
+									</dl>
+									<dl>
+										<dt><i></i><i></i><i></i></dt>
+										<dd>
+											<span class="dashStarBar"><span></span></span>
+											<span class="dashStarCount">4,575</span>
+										</dd>
+									</dl>
+									<dl>
+										<dt><i></i><i></i><i></i></dt>
+										<dd>
+											<span class="dashStarBar"><span></span></span>
+											<span class="dashStarCount">4,575</span>
+										</dd>
+									</dl>
+									<dl>
+										<dt><i></i><i></i></dt>
+										<dd>
+											<span class="dashStarBar"><span></span></span>
+											<span class="dashStarCount">4,575</span>
+										</dd>
+									</dl>
+									<dl>
+										<dt><i></i></dt>
+										<dd>
+											<span class="dashStarBar"><span></span></span>
+											<span class="dashStarCount">4,575</span>
+										</dd>
+									</dl>
+								</div>
+							</div>
+						</div>
+						<!--//만족도 조사-->
+					</div>
+				</div>
+				<!--//dashCon-->
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+
+
+    <!-------------------------------- script -->
+    <script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+	<script type="text/javascript">
+
+		//일별 세션
+		var ctx = document.getElementById('chartDaily');
+		var chartDaily = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['09.01', '09.02', '09.03', '09.01', '09.01', '09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01','09.01'],
+				datasets: [{
+					label: '일별 세션',
+					data: [120, 162, 185, 123, 200, 201, 201, 201, 201, 201, 201, 201, 201, 201,120, 162, 185, 123, 200, 201, 201, 201, 201, 201, 201, 201, 201, 201, 201, 201, 201],
+					backgroundColor: '#343B42',
+				}]
+			},
+			options: {
+				maintainAspectRatio : false,
+				legend: {
+					display: false
+				},
+				responsive: true,
+				tooltips: {
+					enabled: true
+				},
+				hover: {
+					animationDuration: 0
+				},
+				animation: {
+					duration: 1,
+					onComplete: function () {
+						var chartInstance = this.chart,
+						ctx = chartInstance.ctx;
+						
+						ctx.fillStyle = '#343B42';
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'bottom';
+
+						this.data.datasets.forEach(function (dataset, i) {
+							var meta = chartInstance.controller.getDatasetMeta(i);
+							meta.data.forEach(function (bar, index) {
+								var data = dataset.data[index];							
+								ctx.fillText(data, bar._model.x, bar._model.y - 5);
+							});
+						});
+
+						//최대값이 안보이는 현상이 있음. 임의로 차트에 최대값을 +1해서 넣어줄수있는지?
+						//그래프 중 최고치 background,font color #FF5000
+					}
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							fontColor : '#8598AA',
+							fontSize : 11,
+						},
+						gridLines:{
+							display: false,
+							drawBorder: false
+						}
+					}],
+					xAxes: [{
+						
+						barThickness: 8,
+						ticks: {
+							callback: function(tick, index, array) {
+								return (index % 2) ? "" : tick;
+							},
+							autoSkip: true,
+							minRotation: 360,
+							beginAtZero: true,
+							fontColor : '#8598AA',
+							fontSize : 11,
+
+						},
+						gridLines:{
+							display: false,
+							drawBorder: false
+						}
+					}]
+				}
+			}
+		});
+
+		//시간대별 누적 세션
+		var ctx = document.getElementById('chartTime');
+		var chartTime = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ['00','01','02','03','04','05','06','07','08','09','10','11','12','13','14','15','16','17','18','19','20','21','22','23'],
+				datasets: [{
+					label: '일별 세션',
+					data: [120, 162, 185, 123, 200, 201, 150, 201, 320, 201, 201, 201, 201, 201,120, 162, 185, 123, 200, 201, 201, 201, 201, 201],
+					backgroundColor: '#343B42',
+				}]
+			},
+			options: {
+				maintainAspectRatio : false,
+				legend: {
+					display: false
+				},
+				responsive: true,
+				tooltips: {
+					enabled: true
+				},
+				hover: {
+					animationDuration: 0
+				},
+				animation: {
+					duration: 1,
+					onComplete: function () {
+						var chartInstance = this.chart,
+						ctx = chartInstance.ctx;
+						
+						ctx.fillStyle = '#343B42';
+						ctx.textAlign = 'center';
+						ctx.textBaseline = 'bottom';
+
+						this.data.datasets.forEach(function (dataset, i) {
+							var meta = chartInstance.controller.getDatasetMeta(i);
+							meta.data.forEach(function (bar, index) {
+								var data = dataset.data[index];							
+								ctx.fillText(data, bar._model.x, bar._model.y - 5);
+							});
+						});
+
+						//최대값이 안보이는 현상이 있음. 임의로 차트에 최대값을 +1해서 넣어줄수있는지?
+						//그래프 중 최고치 background,font color #FF5000
+					}
+				},
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero: true,
+							fontColor : '#8598AA',
+							fontSize : 11,
+						},
+						gridLines:{
+							display: false,
+							drawBorder: false
+						}
+					}],
+					xAxes: [{
+						autoSkip: true,
+						maxRotation: 0,
+						minRotation: 0,
+						barThickness: 8,
+						ticks: {
+							beginAtZero: true,
+							fontColor : '#8598AA',
+							fontSize : 11,
+
+						},
+						gridLines:{
+							display: false,
+							drawBorder: false
+						}
+					}]
+				}
+			}
+		});
+
+		//만족도 차트
+		var ctx = document.getElementById('chartStatis');
+		var chartStatis = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				labels: ['만족','불만족'],
+				datasets: [{
+					label: '만족도 조사',
+					data: [162, 15],
+					backgroundColor: ['#ff5000','#F1F3F6'],
+					borderWidth: 0
+				}]
+			},
+			options: {
+				maintainAspectRatio : false,
+				legend: {
+					display: false
+				},
+				responsive: true,
+				tooltips: {
+					enabled: true
+				},
+				hover: {
+					animationDuration: 0
+				},
+				animation: {},
+			}
+		});
+		
+	</script>
+</body>
+</html>

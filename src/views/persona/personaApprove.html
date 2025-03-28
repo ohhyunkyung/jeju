@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no,address=no,email=no">
+	<!-- 캐쉬 삭제  -->
+	<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<!-- 캐쉬 삭제  -->
+	<title>챗봇 설정</title>
+	<!------------------------------ favicon-->
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="../../static/images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="../../static/images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../../static/images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../static/images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../../static/images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../../static/images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../../static/images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../../static/images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../static/images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../static/images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../../static/images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="../../static/images/favicon//manifest.json"> 
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../../static/images/favicon//ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">-->
+
+	<!------------------------------ css-->
+	<link rel="stylesheet" href="./../../css/common.css"/>
+	<link rel="stylesheet" href="./../../css/page.css"/>
+</head>
+<body>
+	<div class="wrap">
+		<header>
+    <a href="javascript:;" onclick="dashboard();"><i class="logo"></i></a>
+    <div class="userInfo">
+        <div class="userInfoChatbot">
+            <div class="gap8 m-r20">
+                <i class="ico-chatbot"></i>
+                <span>챗봇</span>
+            </div>
+            <div class="gap12">
+                <button type="button" class="btn-blue500" onclick="chatbotTest(this);">테스트 챗봇</button>
+                <button type="button" class="btn-gray800" onclick="chatbot(this);">운영 챗봇</button>
+            </div>
+        </div>
+        <span class="userInfoNm">
+            <span class="m-r12">
+                <a href="javascript:;" class="btn-link" onclick="mypage(this);">김제주님</a> 반갑습니다.
+            </span>
+            <i class="ico-smile"></i>
+        </span>
+        <button type="button" class="btn-icon" onclick="logout();"><i class="ico-logout"></i></button>
+    </div>
+</header>
+<!--//header-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+		<div class="contents">
+			<div class="nav">
+    <ul>
+        <!-- 메뉴 active : a addClass('active') -->
+        <li><a href="javascript:;" onclick="dashboard();"><i></i>대시보드</a></li>
+        <li>
+            <a href="javascript:;"><i></i>챗봇 설정</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="chatbotSetting();">챗봇 설정</a></li>
+                <li><a href="javascript:;" onclick="chatbotSettingTxt();">문구 설정</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>페르소나</a>
+            <ul>
+                <!-- 서브 메뉴 active : a addClass('on') -->
+                <li><a href="javascript:;" onclick="persona();" >페르소나 현황</a></li>
+                <li><a href="javascript:;" onclick="personaApprove();">승인 요청 내역</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>지식 베이스</a>
+            <ul>
+                <li><a href="javascript:;" onclick="knowledge();">지식 베이스 현황</a></li>
+                <li><a href="javascript:;" onclick="knowledgeApprove();">승인 요청 내역</a></li>
+                <li><a href="javascript:;" onclick="knowledgeKeyword();">키워드</a></li>
+                <li><a href="javascript:;" onclick="knowledgeUnlearned();">미학습 질문</a></li>
+                <li><a href="javascript:;" onclick="knowledgeIncorrect();">오답변</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="javascript:;"><i></i>통계</a>
+            <ul>
+                <li><a href="javascript:;" onclick="statisticsChat();">세션</a></li>
+                <li><a href="javascript:;" onclick="statisticsQuestion();">질문</a></li>
+                <li><a href="javascript:;" onclick="statisticsSatisfaction();">만족도 </a></li>
+                <li><a href="javascript:;" onclick="statisticsKeyword();">키워드 </a></li>
+                <li><a href="javascript:;" onclick="statisticsChatTotal();">채팅 내역 </a></li>
+            </ul>
+        </li>
+        <li><a href="javascript:;" onclick="accountMng();" ><i></i>계정 관리</a></li>
+    </ul>
+</div>
+<!--//nav-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+
+			<div class="pages">
+				<div class="title-page">
+					<h1>페르소나 승인 요청 내역</h1>
+				</div>
+				<div class="search">
+					<ul class="form">
+						<li>
+							<label>승인 상태</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="approveTypePending" name="approveType" checked>
+									<label for="approveTypePending">대기 153</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="approveTypeReject" name="approveType">
+									<label for="approveTypeReject">불가 </label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="approveTypeComplete" name="approveType">
+									<label for="approveTypeComplete">완료</label>
+								</div>
+							</div>
+						</li>
+						<li>
+							<label>
+								<select>
+									<option>요청기간</option>
+									<option>처리기간</option>
+								</select>
+							</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="dateAll" name="dateType" checked="">
+									<label for="langAll">전체</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateToday" name="dateType">
+									<label for="dateToday">오늘</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateWeek" name="dateType">
+									<label for="dateWeek">7일전</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateMonth" name="dateType">
+									<label for="dateMonth">1개월</label>
+								</div>
+							</div>
+							<div class="ipt iptDate">
+								<i class="ico-date"></i>
+								<a href="javascript:;" class="dateN" onclick="date(this);">날짜 선택</a>
+								<span class="tag ligthOrangeLine datepicker" style="display:none;">
+									<!-- 디폴트 : 날짜 적용x -->
+									<input type="text" class="">
+									<a href="javascript:;" class="dateDelete" onclick="dateDelete(this);"><i class="ico-close orange500"></i></a>
+								</span>
+							</div>
+						</li>
+						<li>
+							<label>언어</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="langAll" name="langType" checked>
+									<label for="langAll">전체</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="langKo" name="langType">
+									<label for="langKo">한국어 132</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="langJp" name="langType">
+									<label for="langJp">일본어 13</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="langEn" name="langType">
+									<label for="langEn">영어 12</label>
+								</div>
+							</div>
+						</li>
+						<li>
+							<label>구분</label>
+							<div class="ipt">
+								<select>
+									<option>전체</option>
+									<option>신규</option>
+									<option>변경</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<label>
+								<select>
+									<option>전체</option>
+									<option>내용</option>
+									<option>요청인</option>
+									<option>처리인</option>
+								</select>
+							</label>
+							<div class="ipt">
+								<input type="text" placeholder="내용 입력">
+							</div>
+							<button type="button" class="btn-icon" onclick="search(this);"><i class="ico-sch"></i></button>
+						</li>
+					</ul>
+				</div>
+				<!--//search-->
+				<div class="tbl">
+					<div class="tblTop">
+						<div class="total">총 <strong>19</strong> 개</div>
+						<span class="chk">
+							<input type="checkbox" id="myApprove">
+							<label for="myApprove">
+								<span class="chkShape"></span>
+								<span class="chkTxt">내 요청만 보기</span>
+							</label>
+						</span>
+					</div>
+					<!--//tblTop-->
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="70"> <!--코드-->
+								<col width="140"> <!--상태-->
+								<col width="160"> <!--요청일-->
+								<col width="160"> <!--요청인-->
+								<col width="80" class="approveLang ko"> <!--한국어-->
+								<col width="80" class="approveLang jp"> <!--일본어-->
+								<col width="80" class="approveLang en"> <!--영어-->
+								<col width="100"> <!--구분-->
+								<col width="*"> <!--내용-->
+								<col width="160" class="approveCompleteData"> <!--처리일시-->
+								<col width="160" class="approveCompleteData"> <!--처리인-->
+							</colgroup>
+							<tr>
+								<th>코드</th>
+								<th><button type="button" class="sort"><span>상태</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>요청일시</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>요청인</span><i class="ico-sort"></i></button></th>
+								<th class="txtC approveLang ko">한국어</th>
+								<th class="txtC approveLang jp">일본어</th>
+								<th class="txtC approveLang en">영어</th>
+								<th><button type="button" class="sort"><span>구분</span><i class="ico-sort"></i></button></th>
+								<th>내용</th>
+								<th class="approveCompleteData"><button type="button" class="sort"><span>처리일시</span><i class="ico-sort"></i></button></th>
+								<th class="approveCompleteData"><button type="button" class="sort"><span>처리인</span><i class="ico-sort"></i></button></th>
+							</tr>
+						</table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody">
+						<table>
+							<colgroup>
+								<col width="70"> <!--코드-->
+								<col width="140"> <!--상태-->
+								<col width="160"> <!--요청일-->
+								<col width="160"> <!--요청인-->
+								<col width="80" class="approveLang ko"> <!--한국어-->
+								<col width="80" class="approveLang jp"> <!--일본어-->
+								<col width="80" class="approveLang en"> <!--영어-->
+								<col width="100"> <!--구분-->
+								<col width="*"> <!--내용-->
+								<col width="160" class="approveCompleteData"> <!--처리일시-->
+								<col width="160" class="approveCompleteData"> <!--처리인-->
+							</colgroup>
+							<!-- 승인 대기 -->
+							<tr onclick="detail(this,'approvePending');">
+								<td>P4</td>
+								<td class="">
+									<!-- value = 승인 대기/승인불가/승인 완료 -->
+									<span class="ligthOrangeLine tag">승인 대기</span>
+								</td>
+								<td>2024.09.05 19:13:12</td>
+								<td>이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+								<td class="approveLang ko">
+									<!-- addClass('활성화:orange500', 비활성화:'gray300' ) --> 
+									<div class="justifyC"><i class="ico-chk i12 orange500"></i></div>
+								</td>
+								<td class="approveLang jp"><div class="justifyC"><i class="ico-chk i12 orange500"></i></div></td>
+								<td class="approveLang en"><div class="justifyC"><i class="ico-chk i12 gray300"></i></div></td>
+								<td>
+									<!--신규or변경-->
+									신규
+								</td>
+								<td>사용자의 문의가 불명확한 경우, 추가 정보를 요청하여 질문을 명확히 하세요.</td>
+								<td class="approveCompleteData">2024.09.05 19:13:12</td>
+								<td class="approveCompleteData">이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+							</tr>
+							<!-- 승인 불가 -->
+							<tr onclick="detail(this,'reject');">
+								<td>P4</td>
+								<td class="">
+									<span class="lightRed line tag">승인 불가</span>
+								</td>
+								<td>2024.09.05 19:13:12</td>
+								<td>이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+								<td class="approveLang ko">
+									<div class="justifyC"><i class="ico-chk i12 orange500"></i></div>
+								</td>
+								<td class="approveLang jp"><div class="justifyC"><i class="ico-chk i12 orange500"></i></div></td>
+								<td class="approveLang en"><div class="justifyC"><i class="ico-chk i12 gray300"></i></div></td>
+								<td>신규</td>
+								<td>답변에 HTML 태그가 포함되어야 하는 경우, 해당 태그를 그대로 출력하세요.</td>
+								<td class="approveCompleteData">2024.09.05 19:13:12</td>
+								<td class="approveCompleteData">이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+							</tr>
+							<!-- 승인 완료 -->
+							<tr onclick="detail(this,'approveComplete');">
+								<td>P4</td>
+								<td>
+									<span class="gray100 line tag">승인 완료</span>
+								</td>
+								<td>2024.09.05 19:13:12</td>
+								<td>이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+								<td class="approveLang ko">
+									<div class="justifyC"><i class="ico-chk i12 orange500"></i></div>
+								</td>
+								<td class="approveLang jp"><div class="justifyC"><i class="ico-chk i12 orange500"></i></div></td>
+								<td class="approveLang en"><div class="justifyC"><i class="ico-chk i12 gray300"></i></div></td>
+								<td>변경</td>
+								<td>답변이 가능한 언어는 언어는 한국어 입니다. 한국어 외 언어로 사용자가 질문 시 한국어 답변만 가능하다고 말해주세요.</td>
+								<td class="approveCompleteData">2024.09.05 19:13:12</td>
+								<td class="approveCompleteData">이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+							</tr>
+							<!-- 승인 대기 (관리자) -->
+							<tr onclick="detail(this,'pendingAdmin');">
+								<td>P4</td>
+								<td class="">
+									<!-- value = 승인 대기/승인불가/승인 완료 -->
+									<span class="ligthOrangeLine tag">승인 대기</span>
+								</td>
+								<td>2024.09.05 19:13:12</td>
+								<td>이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+								<td class="approveLang ko">
+									<!-- addClass('활성화:orange500', 비활성화:'gray300' ) --> 
+									<div class="justifyC"><i class="ico-chk i12 orange500"></i></div>
+								</td>
+								<td class="approveLang jp"><div class="justifyC"><i class="ico-chk i12 orange500"></i></div></td>
+								<td class="approveLang en"><div class="justifyC"><i class="ico-chk i12 gray300"></i></div></td>
+								<td>
+									<!--신규or변경-->
+									신규
+								</td>
+								<td>사용자의 문의가 불명확한 경우, 추가 정보를 요청하여 질문을 명확히 하세요.</td>
+								<td class="approveCompleteData">2024.09.05 19:13:12</td>
+								<td class="approveCompleteData">이하윤<p class="ft13 crGray600 m-t4">고객 경영팀</p></td>
+							</tr>
+						</table>
+					</div>
+					<!--//tblBody-->
+					<div class="tblFooter">
+						<div class="paging">
+							<div class="prev">
+								<button type="button" class="max" disabled></button>
+								<button type="button" disabled></button>
+							</div>
+							<ul>
+								<!-- 페이징 활성화 : a addClass('on') -->
+								<li><a href="javascript:;" class="on">1</a></li>
+								<li><a href="javascript:;">2</a></li>
+								<li><a href="javascript:;">3</a></li>
+								<li><a href="javascript:;">4</a></li>
+							</ul>
+							<div>
+								<button type="button"></button>
+								<button type="button" class="max"></button>
+							</div>
+						</div>
+					</div>
+					<!--//tblFooter-->
+				</div>
+				<!--//tbl-->
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+	<!--페르소나 현황 상세랑 똑같아요. 공통으로 쓰세요 -->
+	<section class="pop page" id="p_persona">
+		<div class="popBox">
+			<div class="popCon">
+				<div class="popHd"> 
+					<div class="flexC">
+						<h2>
+							<!-- 코드번호 '신규' 일땐 hide -->
+							<strong id="detailCode" style="display:none;">[P1]</strong>
+							페르소나 <span class="popType">상세</span>
+						</h2>
+						<!-- 히스토리 있을 때 show-->
+						<button type="button" class="btn-l blue100 m-l16" onclick="history(this);" id="history" style="display:none;">히스토리 보기</button>
+					</div>
+					<a href="javascript:;" class="popClose"></a>
+				</div>
+				<!-- 현황 : approveResultBody addClass('승인완료:디폴트','승인대기:pending','테스트:test' -->
+				<!-- 승인요청내역 : approveResultBody addClass('승인완료:approveComplete','승인대기:approvePending','승인불가:reject' -->
+				<!-- 슈퍼 관리자일때 approveResultBody addClass('admin') -->
+				<div class="popBody gap32" id="approveResultBody">
+					<div class="flexColumn gap20" >
+						<!-- 승인 대기 -->
+						<div class="flexBetween" id="approvePending" style="display:none;">
+							<div class="flexColumn gap8">
+								<div><span class="tag">김상수 (고객영업팀) / 2024.08.19 15:12:13</span></div>
+								<strong class="ft24">
+									<span class="crOrange500"><!--신규일때 텍스트 추가 '[신규]'-->승인 대기 중</span> 입니다.
+								</strong>
+							</div>
+							<div class="btnArea" id="approveBtn" style="display:none;">
+								<button type="button" class="btn-l" onclick="selApprove(this,'cancel');" id="appporveCancel">승인 요청 취소</button>
+								<button type="button" class="btn-l red500" onclick="selApprove(this,'N');" id="appporvN"><i class="ico-close"></i>승인 불가</button>
+								<button type="button" class="btn-p" onclick="selApprove(this,'Y');" id="appporvY"><i class="ico-chk"></i>승인 완료</button>
+							</div>
+						</div>
+						<!-- 승인 불가 -->
+						<div class="flexColumn gap12" id="approveReject"  style="display:none;">
+							<strong class="ft24"><span class="crRed500">승인 불가</span> 입니다.</strong>
+							<dl class="flex gap12">
+								<dt class="crRed500 lineH24">사유 : </dt>
+								<dd class="flex1 lineH24">반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표기됩니다.반려 사유는 여기에 표</dd>
+							</dl>
+						</div>
+						<!-- 승인 완료 -->
+						<div class="flexColumn gap12" id="approveComplete" style="display:none;">
+							<strong class="ft24"><span class="crOrange500">승인 완료</span></strong>
+						</div>
+						<!-- 승인 결과 -->
+						<div class="approveResult" id="approveResult" style="display:none;">
+							<div>
+								<div class="flexC gap20">
+									<span class="tag">요청</span>
+									<div class="flexC gap12"><i class="ico-date i12"></i>2024.09.15 13:16:15</div>
+								</div>
+								<div class="flexC gap8"><strong class="ft16">홍길동</strong><span class="crGray700">고객 경영팀</span></div>
+							</div>
+							<div>
+								<div class="flexC gap20">
+									<!-- tag addClass('승인완료:ligthOrange','승인불가:lightRed')-->
+									<span class="tag lightRed">승인 불가</span>
+									<div class="flexC gap12"><i class="ico-date i12"></i>2024.09.15 13:16:15</div>
+								</div>
+								<div class="flexC gap8"><strong class="ft16">홍길동</strong><span class="crGray700">고객 경영팀</span></div>
+							</div>
+						</div>
+						<!--//승인 결과-->
+					</div>
+					<div class="flex gap64 flex1">
+						<div class="formWrap" id="before">
+							<ul class="tab" id="beforeTab" style="display:none;">
+								<li><a>변경 전</a></li>
+							</ul>
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>정보</h2>
+									<p>페르소나 정보를 설정해 주세요.</p>
+									<!-- 사용 여부 -->
+									<button type="button" class="toggle" ><span class="toggleBar"></span></button>
+								</div>
+								<div class="formBody">
+									<ul class="form">
+										<li>
+											<label>유형</label>
+											<div class="iptArea">
+												<div class="ipt" >
+													<select id="selType">
+														<option>기본</option>
+														<option>태도</option>
+														<option>제한</option>
+														<option>보안</option>
+													</select>
+												</div>
+											</div>
+										</li>
+										<li>
+											<label>사용 언어</label>
+											<div class="chkArea">
+												<!-- 디폴트 : 한국어, 일본어, 영어 checked -->
+												<span class="chk">
+													<input type="checkbox" id="langTypeChkKo" name="langTypeChk" checked>
+													<label for="langTypeChkKo">
+														<span class="chkShape"></span>
+														<span class="chkTxt">한국어</span>
+													</label>
+												</span>
+												<span class="chk">
+													<input type="checkbox" id="langTypeChkJp" name="langTypeChk" checked>
+													<label for="langTypeChkJp">
+														<span class="chkShape"></span>
+														<span class="chkTxt">일본어</span>
+													</label>
+												</span>
+												<span class="chk">
+													<input type="checkbox" id="langTypeChkEn" name="langTypeChk" checked>
+													<label for="langTypeChkEn">
+														<span class="chkShape"></span>
+														<span class="chkTxt">영어</span>
+													</label>
+												</span>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//정보-->
+							<div class="formGroup flex1">
+								<div class="formHd">
+									<h2>페르소나</h2>
+								</div>
+								<div class="formBody flex1 flexColumn">
+									<ul class="form flex1">
+										<li class="ness flex1">
+											<label>내용</label>
+											<div class="iptArea flex1">
+												<div class="ipt flex1">
+													<!-- 4글자 이상 입력 후 챗봇 테스트 하기 버튼 활성화 -->
+													<textarea onkeyup="personaVaild(this,'personaTxt');" id="personaTxt">사용자의 문의가 불명확한 경우, 추가 정보를 요청하여 질문을 명확히 하세요.</textarea>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//페르소나-->
+						</div>
+						<!--//formWrap-->
+						<div class="formWrap" id="after" style="display:none;">
+							<ul class="tab" >
+								<li><a class="on">변경 후</a></li>
+							</ul>
+							<div class="formGroup">
+								<div class="formHd">
+									<h2>정보</h2>
+									<p>페르소나 정보를 설정해 주세요.</p>
+									<!-- 사용 여부 -->
+									<button type="button" class="toggle" ><span class="toggleBar"></span></button>
+								</div>
+								<div class="formBody">
+									<ul class="form">
+										<li>
+											<label>유형</label>
+											<div class="iptArea">
+												<div class="ipt" >
+													<select id="selType">
+														<option>기본</option>
+														<option>태도</option>
+														<option>제한</option>
+														<option>보안</option>
+													</select>
+												</div>
+											</div>
+										</li>
+										<li>
+											<label>사용 언어</label>
+											<div class="chkArea">
+												<!-- 디폴트 : 한국어, 일본어, 영어 checked -->
+												<span class="chk">
+													<input type="checkbox" id="langTypeChkKo" name="langTypeChk" checked>
+													<label for="langTypeChkKo">
+														<span class="chkShape"></span>
+														<span class="chkTxt">한국어</span>
+													</label>
+												</span>
+												<span class="chk">
+													<input type="checkbox" id="langTypeChkJp" name="langTypeChk" checked>
+													<label for="langTypeChkJp">
+														<span class="chkShape"></span>
+														<span class="chkTxt">일본어</span>
+													</label>
+												</span>
+												<span class="chk">
+													<input type="checkbox" id="langTypeChkEn" name="langTypeChk" checked>
+													<label for="langTypeChkEn">
+														<span class="chkShape"></span>
+														<span class="chkTxt">영어</span>
+													</label>
+												</span>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//정보-->
+							<div class="formGroup flex1">
+								<div class="formHd">
+									<h2>페르소나</h2>
+								</div>
+								<div class="formBody flex1 flexColumn">
+									<ul class="form flex1">
+										<li class="ness flex1">
+											<label>내용</label>
+											<div class="iptArea flex1">
+												<div class="ipt flex1">
+													<!-- 4글자 이상 입력 후 챗봇 테스트 하기 버튼 활성화 -->
+													<textarea onkeyup="personaVaild(this,'personaTxt');" id="personaTxt">사용자의 문의가 불명확한 경우, 추가 정보를 요청하여 질문을 명확히 하세요.</textarea>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+							<!--//페르소나-->
+						</div>
+						<!--//formWrap-->
+					</div>
+				</div>
+				<!--//popBody-->
+				<div class="popFooter">
+					<div>
+						<!-- 슈퍼 관리자는 삭제 버튼 계속 보일 것 -->
+						<button type="button" class="btn-l" onclick="deleteDetail(this);" id="deleteDetail" style="display:none;">삭제</button>
+					</div>
+					<div class="btnArea" id="footerBtn">
+						<p class="cmt open" id="infoTest"><i></i>챗봇 테스트 후 승인 요청을 할 수 있습니다.</p>
+						<button type="button" class="btn-p savePop" onclick="testChatbot(this);">
+							<i class="ico-chk"></i>챗봇 테스트 하기
+						</button>
+						<button type="button" class="btn-b" onclick="approveChatbot(this);" id="approveChatbot" disabled>
+							<i class="ico-chk "></i>승인 요청 <!--관리자일때 : '저장하기' -->
+						</button>
+					</div>
+				</div>
+				<!--//popFooter-->
+			</div>
+		</div>
+	</section>
+	<!--//페르소나 상세-->
+
+	<section class="pop" id="p_deleteDetail">
+		<div class="alertCon">
+			<div class="alerHd">
+				<i class="que"></i>
+				<div class="alertTxt">
+					<strong>삭제하시겠습니까?</strong>
+				</div>
+			</div>
+			<div class="alerFooter">
+				<button type="button" class="btn-l" onclick="popClose(this);">취소</button>
+				<button type="button" class="btn-b" onclick="saveDeleteDetail(this);">
+					<i class="ico-chk"></i>삭제하기
+				</button>
+			</div>
+		</div>
+	</section>
+	<!--//삭제-->
+
+	<section class="pop " id="p_approveReject">
+		<div class="popBox">
+			<div class="popHd">
+				<h2>승인 불가 사유</h2>
+				<a href="javascript:;" class="popClose" onclick="popClose(this);"></a>
+			</div>
+			<div class="popBody">
+				<ul class="form">
+					<li>
+						<div class="iptArea">
+							<div class="ipt">
+								<textarea placeholder="내용을 입력해 주세요." style="width:558px; height:234px;" onkeyup="rejectVaild(this,'rejectTxt');" id="rejectTxt"></textarea>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="popFooter">
+				<span></span>
+				<button type="button" class="btn-b savePop" onclick="saveApproveReject(this);" disabled>
+					<i class="ico-chk wh"></i>승인 불가 완료
+				</button>
+			</div>
+		</div>
+	</section>
+	<!--//승인 불가 사유 -->
+
+	<section class="pop" id="p_cancelAlert">
+		<div class="alertCon">
+			<div class="alerHd">
+				<i class="que"></i>
+				<div class="alertTxt">
+					<strong>승인 요청을 취소하시겠습니까?</strong>
+					<p>승인 요청 이전 데이터로 유지됩니다.</p>
+				</div>
+			</div>
+			<div class="alerFooter">
+				<button type="button" class="btn-l" onclick="popClose(this);">취소</button>
+				<button type="button" class="btn-b" onclick="saveCancelApporve(this);">
+					<i class="ico-chk"></i>승인 요청 취소하기
+				</button>
+			</div>
+		</div>
+	</section>
+	<!--//승인취소-->
+
+    <!-------------------------------- script -->
+    <script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../lib/chart/Chart.bundle.min.js"></script>
+	<script src="../../lib/chart/Chart.min.js"></script>
+	<script src="../../js/design.js"></script> 
+
+
+	<script src="persona.js"></script> 
+
+	<script type="text/javascript">
+
+		////////////////////////////////검색조건 따른 table 변경
+
+		/*승인상태*/
+		$('[name="approveType"]').click(function(){
+			if( $('#approveTypePending').is(':checked')){
+				$('.approveCompleteData').hide();
+			}else{
+				$('.approveCompleteData').show();
+			}
+
+		});
+
+		/*언어*/
+		$('[name="langType"]').click(function(){
+			if( $('#langAll').is(':checked')){
+				$('.approveLang ').show();
+			}else if( $('#langKo').is(':checked') ){
+				$('.approveLang ').hide();
+				$('.approveLang.ko ').show();
+			}else if( $('#langJp').is(':checked') ){
+				$('.approveLang ').hide();
+				$('.approveLang.jp ').show();
+			}else if( $('#langEn').is(':checked') ){
+				$('.approveLang ').hide();
+				$('.approveLang.en ').show();
+			}
+
+		});
+
+		////////////////////////////////관리자용
+		/*승인 불가, 완료*/
+		function selApprove(obj, type){
+
+			if( type == 'N'){
+				$('#p_approveReject').addClass('open');
+				$('#rejectTxt').focus();
+
+			}else if( type == 'Y' ){
+				$('#approveResultBody').removeClass('pending admin').addClass('approveComplete');
+				toast('승인 되었습니다.');
+			}else if( type == 'cancel' ){
+				$('#p_cancelAlert').addClass('open');
+			}
+
+		}
+
+		/*승인 불가 사유 팝업 open */
+		function rejectVaild(obj, type){
+			var ipt = $(obj).val();
+			if( type == 'rejectTxt' ){
+				vaildChk(obj, "","", ipt.length < 1 );
+			}
+		}
+
+		/*승인 불가 사유 저장 완료*/
+		function saveApproveReject(obj){
+			popClose(obj);
+			toast('승인이 불가되었습니다.')
+			$('#approveResultBody').removeClass('pending').addClass('reject')
+		}
+
+		/*승인 요청 취소 완료*/
+		function saveCancelApporve(obj){
+			popClose(obj);
+			toast('승인 요청이 취소되었습니다.')
+			$('#approveResultBody').removeClass('approvePending');
+		}
+
+	</script>
+</body>
+</html>

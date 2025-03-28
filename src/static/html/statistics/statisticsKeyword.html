@@ -1,0 +1,156 @@
+@@include('../../inc/top.html')
+<body>
+	<div class="wrap">
+		@@include('../../inc/header.html')
+		<div class="contents">
+			@@include('../../inc/nav.html')
+			<div class="pages">
+				<div class="title-page">
+					<h1>키워드 통계</h1>
+				</div>
+				<div class="search">
+					<ul class="form">
+						<li>
+							<label>기간</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="dateAll" name="dateType" checked="">
+									<label for="dateAll">전체</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateToday" name="dateType">
+									<label for="dateToday">오늘</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateWeek" name="dateType">
+									<label for="dateWeek">7일전</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateMonth" name="dateType">
+									<label for="dateMonth">1개월</label>
+								</div>
+							</div>
+							<div class="ipt iptDate">
+								<i class="ico-date"></i>
+								<a href="javascript:;" class="dateN" onclick="date(this);">날짜 선택</a>
+								<span class="tag ligthOrangeLine datepicker" style="display:none;">
+									<!-- 디폴트 : 날짜 적용x -->
+									<input type="text" class="">
+									<a href="javascript:;" class="dateDelete" onclick="dateDelete(this);"><i class="ico-close orange500"></i></a>
+								</span>
+							</div>
+						</li>
+						<li>
+							<div class="ipt">
+								<input type="text" placeholder="내용 입력">
+							</div>
+							<button type="button" class="btn-icon" onclick="search(this);"><i class="ico-sch"></i></button>
+						</li>
+					</ul>
+					<button type="button" class="btn-l" onclick="download();"><i class="ico-download"></i>다운로드</button>
+				</div>
+				<!--//search-->
+
+				<div class="tbl">
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="120"> <!--순위-->
+								<col width="120"> <!--키워드-->
+								<col width="120"> <!--검색 수-->
+								<col width="120"> <!--검색 비율-->
+								<col width="*"> <!--지식베이스 수-->
+							</colgroup>
+							<tr>
+								<th><button type="button" class="sort"><span>순위</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>키워드</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>검색 수</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>검색 율</span><i class="ico-sort"></i></button></th>
+								<th></th>
+							</tr>
+						</table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody">
+						<!-- empty addClass('open')-->
+						<div class="empty center">
+							<i></i>
+							<dl>
+								<dt>검색 결과가 없습니다.</dt>
+								<dd>다른 키워드로 다시 시도해 주세요.</dd>
+							</dl>
+						</div>
+						<!--//empty-->
+						<table>
+							<colgroup>
+								<col width="120"> <!--순위-->
+								<col width="120"> <!--키워드-->
+								<col width="120"> <!--검색 수-->
+								<col width="120"> <!--검색 율-->
+								<col width="*"> <!--지식베이스 수-->
+							</colgroup>
+							<tr onclick="detail(this)">
+								<td>1</td>
+								<td>
+									<span class="ligthOrangeLine tag">항공권</span>
+								</td>
+								<td>22</td>
+								<td>70%</td>
+								<td></td>
+							</tr>
+							<tr onclick="detail(this)">
+								<td>2</td>
+								<td>
+									<span class="ligthOrangeLine tag">항공권</span>
+								</td>
+								<td>22</td>
+								<td>30%</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+					<!--//tblBody-->
+					<div class="tblFooter">
+						<div class="paging">
+							<div class="prev">
+								<button type="button" class="max" disabled></button>
+								<button type="button" disabled></button>
+							</div>
+							<ul>
+								<!-- 페이징 활성화 : a addClass('on') -->
+								<li><a href="javascript:;" class="on">1</a></li>
+								<li><a href="javascript:;">2</a></li>
+								<li><a href="javascript:;">3</a></li>
+								<li><a href="javascript:;">4</a></li>
+							</ul>
+							<div>
+								<button type="button"></button>
+								<button type="button" class="max"></button>
+							</div>
+						</div>
+					</div>
+					<!--//tblFooter-->
+				</div>
+				<!--//tbl-->
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+
+
+<!-------------------------------- popup incloude -->
+    <!-- 질문내역 -->
+    @@include('../../html/statistics/p_detail.html')
+	<!-- 전체채팅내역 -->
+	@@include('../../html/statistics/p_detailChat.html')
+	<!-- 키우드 상세-->
+	@@include('../../html/statistics/p_selKnowledge.html')
+
+    <!-------------------------------- script -->
+    @@include('../../inc/script.html')
+
+</body>
+</html>

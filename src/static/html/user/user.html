@@ -1,0 +1,235 @@
+@@include('../../inc/top.html')
+<body>
+	<div class="wrap">
+		@@include('../../inc/header.html')
+		<div class="contents">
+			@@include('../../inc/nav.html')
+			<div class="pages">
+				<div class="title-page">
+					<h1>계정 관리</h1>
+				</div>
+				<div class="search">
+					<ul class="form">
+						<li>
+							<label>등록일</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="dateAll" name="dateType" checked="">
+									<label for="dateAll">전체</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateToday" name="dateType">
+									<label for="dateToday">오늘</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateWeek" name="dateType">
+									<label for="dateWeek">7일전</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateMonth" name="dateType">
+									<label for="dateMonth">1개월</label>
+								</div>
+							</div>
+							<div class="ipt iptDate">
+								<i class="ico-date"></i>
+								<a href="javascript:;" class="dateN" onclick="date(this);" >날짜 선택</a>
+								<span class="tag ligthOrangeLine datepicker" style="display:none;">
+									<!-- 디폴트 : 날짜 적용x -->
+									<input type="text" class="" >
+									<a href="javascript:;" class="dateDelete" onclick="dateDelete(this);"><i class="ico-close orange500"></i></a>
+								</span>
+							</div>
+						</li>
+						<li>
+							<label>조직</label>
+							<div class="ipt">
+								<select>
+									<option>부서 전체</option>
+									<option>고객 경영팀</option>
+									<option>고객 센터</option>
+								</select>
+								<select>
+									<option>직급 전체</option>
+									<option>상담사</option>
+									<option>센터장</option>
+									<option>팀원</option>
+									<option>팀장</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<label>권한</label>
+							<div class="ipt">
+								<select>
+									<option>전체</option>
+									<option>사용자</option>
+									<option>관리자</option>
+									<option>슈퍼관리자</option>
+								</select>
+							</div>
+						</li>
+						<li>
+							<label>
+								<select>
+									<option>전체</option>
+									<option>사용자명</option>
+									<option>연락처</option>
+									<option>아이디</option>
+								</select>
+							</label>
+							<div class="ipt">
+								<input type="text" placeholder="검색어 입력">
+							</div>
+							<button type="button" class="btn-icon" onclick="search(this);"><i class="ico-sch"></i></button>
+						</li>
+					</ul>
+				</div>
+				<!--//search-->
+				<div class="tbl">
+					<div class="tblTop">
+						<div class="total">총 <strong>19</strong> 개</div>
+						<div class="btnArea">
+							<button type="button" class="btn-b" onclick="orgAdmin();"><i class="ico-setting wh"></i>조직 관리</button>
+							<button type="button" class="btn-p" onclick="add();"><i class="ico-plus wh"></i>계정 추가</button>
+						</div>
+					</div>
+					<!--//tblTop-->
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="70"> <!--no-->
+								<col width="120"> <!--등록일-->
+								<col width="140"> <!--부서-->
+								<col width="100"> <!--직급-->
+								<col width="100"> <!--사용자명-->
+								<col width="140"> <!--연락처-->
+								<col width="100"> <!--권한-->
+								<col width="*"> <!--아이디-->
+								<col width="140"> <!--사용여부-->
+							</colgroup>
+							<tr>
+								<th>No</th>
+								<th><button type="button" class="sort"><span>등록일</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>부서</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>직급</span><i class="ico-sort"></i></button></th>
+								<th>사용자명</th>
+								<th>연락처</th>
+								<th><button type="button" class="sort"><span>권한</span><i class="ico-sort"></i></button></th>
+								<th>아이디</th>
+								<th><button type="button" class="sort"><span>사용여부</span><i class="ico-sort"></i></button></th>
+							</tr>
+						</table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody">
+						<!-- empty addClass('open')-->
+						<div class="empty center ">
+							<i></i>
+							<dl>
+								<dt>검색 결과가 없습니다.</dt>
+								<dd>다른 키워드로 다시 시도해 주세요.</dd>
+							</dl>
+						</div>
+						<!--//empty-->
+						<table>
+							<colgroup>
+								<col width="70"> <!--no-->
+								<col width="120"> <!--등록일-->
+								<col width="140"> <!--부서-->
+								<col width="100"> <!--직급-->
+								<col width="100"> <!--사용자명-->
+								<col width="140"> <!--연락처-->
+								<col width="100"> <!--권한-->
+								<col width="*"> <!--아이디-->
+								<col width="140"> <!--사용여부-->
+							</colgroup>
+							<tr onclick="detail(this,'default');">
+								<td>3</td>
+								<td>2024.09.05</td>
+								<td>고객 경영팀</td>
+								<td>대리</td>
+								<td>홍길동</td>
+								<td>010-4656-4565</td>
+								<td>사용자</td>
+								<td>hong3</td>
+								<td>
+									<!-- tag addClass('미사용:디폴트, 사용:ligthOrange', '사용 불가:lightRed')-->
+									<span class="tag ligthOrange">사용</span>
+								</td>
+							</tr>
+							<tr onclick="detail(this,'lock');">
+								<td>2</td>
+								<td>2024.09.05</td>
+								<td>고객 경영팀</td>
+								<td>대리</td>
+								<td>홍길동</td>
+								<td>010-4656-4565</td>
+								<td>사용자</td>
+								<td>hong3</td>
+								<td>
+									<span class="tag lightRed">사용 불가</span>
+								</td>
+							</tr>
+							<tr onclick="detail(this,'default');">
+								<td>1</td>
+								<td>2024.09.05</td>
+								<td>고객 경영팀</td>
+								<td>대리</td>
+								<td>홍길동</td>
+								<td>010-4656-4565</td>
+								<td>사용자</td>
+								<td>hong3</td>
+								<td>
+									<span class="tag ">미사용</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--//tblBody-->
+					<div class="tblFooter">
+						<div class="paging">
+							<div class="prev">
+								<button type="button" class="max" disabled></button>
+								<button type="button" disabled></button>
+							</div>
+							<ul>
+								<!-- 페이징 활성화 : a addClass('on') -->
+								<li><a href="javascript:;" class="on">1</a></li>
+								<li><a href="javascript:;">2</a></li>
+								<li><a href="javascript:;">3</a></li>
+								<li><a href="javascript:;">4</a></li>
+							</ul>
+							<div>
+								<button type="button"></button>
+								<button type="button" class="max"></button>
+							</div>
+						</div>
+					</div>
+					<!--//tblFooter-->
+				</div>
+				<!--//tbl-->
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+	
+    <!-------------------------------- popup incloude -->
+    <!-- 비밀번호초기화 -->
+    @@include('../../html/user/p_resetPw.html')
+	<!-- 조직관리 -->
+	@@include('../../html/user/p_orgAdmin.html')
+	<!-- 계정상세 -->
+	@@include('../../html/user/p_account.html')	
+	<!-- 권한 -->
+	@@include('../../html/user/p_quePermission.html')
+
+
+    <!-------------------------------- script -->
+    @@include('../../inc/script.html')
+
+
+	</body>
+	</html>

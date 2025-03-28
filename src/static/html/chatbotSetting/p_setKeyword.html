@@ -1,0 +1,83 @@
+<section class="pop " id="p_setKeyword">
+	<div class="popBox" style="width:780px;">
+		<div class="popHd">
+			<h2>키워드 설정</h2>
+			<a href="javascript:;" class="popClose"></a>
+		</div>
+		<div class="popBody flexColumnInit gap40">
+			<ul class="tab3">
+				<li><a href="javascript:;" class="on">회원</a></li>
+				<li><a href="javascript:;">항공권</a></li>
+				<li><a href="javascript:;">부가서비스</a></li>
+				<li><a href="javascript:;">사전비정상</a></li>
+				<li><a href="javascript:;">케어승객</a></li>
+				<li><a href="javascript:;">수하물</a></li>
+				<li><a href="javascript:;">탑승 수속</a></li>
+				<li><a href="javascript:;">기내 서비스</a></li>
+				<li><a href="javascript:;">제휴 운항</a></li>
+				<li><a href="javascript:;">공항 정보</a></li>
+				<li><a href="javascript:;">기타</a></li>
+				<li><a href="javascript:;">상담원 연결</a></li>
+			</ul>
+			<div class="keywordListChk">
+				<strong class="ft18">회원</strong>
+				<div class="chkArea scroll flexInit">
+					<span class="chk wd100">
+						<input type="checkbox" id="chkKeywordAll" name="chkKeywordAll">
+						<label for="chkKeywordAll">
+							<span class="chkShape"></span>
+							<span class="chkTxt">전체</span>
+						</label>
+					</span>
+					<span class="chk">
+						<input type="checkbox" id="chkKeyword1" name="chkKeyword" checked>
+						<label for="chkKeyword1">
+							<span class="chkShape"></span>
+							<span class="chkTxt">예매권</span>
+						</label>
+					</span>
+					<span class="chk">
+						<input type="checkbox" id="chkKeyword2" name="chkKeyword" >
+						<label for="chkKeyword2">
+							<span class="chkShape"></span>
+							<span class="chkTxt">예매권</span>
+						</label>
+					</span>
+					<span class="chk">
+						<input type="checkbox" id="chkKeyword3" name="chkKeyword" >
+						<label for="chkKeyword3">
+							<span class="chkShape"></span>
+							<span class="chkTxt">예매권</span>
+						</label>
+					</span>
+					<span class="chk">
+						<input type="checkbox" id="chkKeyword4" name="chkKeyword" >
+						<label for="chkKeyword4">
+							<span class="chkShape"></span>
+							<span class="chkTxt">예매권</span>
+						</label>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="popFooter">
+			<span></span>
+			<button type="button" class="btn-b" onclick="saveSelKeyword(this);"><i class="ico-chk"></i>
+				<span class="crOrange500">8개</span> 선택하기
+			</button>
+		</div>
+	</div>
+</section>
+<!--//키워드 설정-->
+
+<script>
+	/*상담원 연결*/
+			//키워드 설정 open
+			function setKeyword(){
+				$('#p_setKeyword').addClass('open')
+			}
+			//키워드 설정 닫기
+			function saveSelKeyword(obj){
+				popClose(obj)
+			}
+</script>

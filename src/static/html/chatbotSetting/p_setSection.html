@@ -1,0 +1,103 @@
+<section class="pop" id="p_setSection">
+	<div class="popBox" style="width:450px;">
+		<div class="popHd">
+			<h2>세션 설정</h2>
+			<a href="javascript:;" class="popClose"></a>
+		</div>
+		<div class="popBody">
+			<ul class="form">
+				<li>
+					<label>세션당 최대 채팅 수</label>
+					<div class="iptArea col">
+						<div class="ipt" style="width:130px;">
+							<!-- 숫자 0 이면 blur 했을 때 '사용안함' 체크 버튼 활성화 -->
+							<!-- 숫자 빈값이면 blur 했을 때 '사용안함' 체크 버튼 활성화 -->
+							<!-- 최대 입력 값 ? -->
+							<input type="text" oninput="numberWithComma(this);" value="1,000" onblur="chatSectionIpt(this, 'chatLimit');" >
+							<span class="surffix">회</span>
+						</div>
+						<span class="chk">
+							<input type="checkbox" id="chatLimit" name="chatLimit">
+							<label for="chatLimit">
+								<span class="chkShape"></span>
+								<span class="chkTxt">사용 안함</span>
+							</label>
+						</span>
+					</div>
+				</li>
+				<li>
+					<label>1일 최대 세션 수</label>
+					<div class="iptArea col">
+						<div class="ipt readonly" style="width:130px;">
+							<input type="text" readonly="readonly" oninput="numberWithComma(this);"  onblur="chatSectionIpt(this,'chatLimitDay');">
+							<span class="surffix">회</span>
+						</div>
+						<span class="chk">
+							<input type="checkbox" id="chatLimitDay" name="chatLimit" checked="">
+							<label for="chatLimitDay">
+								<span class="chkShape"></span>
+								<span class="chkTxt">사용 안함</span>
+							</label>
+						</span>
+					</div>
+				</li>
+				<li>
+					<label>세션 종료 대기 시간</label>
+					<div class="iptArea col">
+						<div class="ipt readonly" style="width:130px;">
+							<input type="text" readonly="readonly" oninput="numberWithComma(this);"  onblur="chatSectionIpt(this,'chatEndTime');">
+							<span class="surffix">분</span>
+						</div>
+						<span class="chk">
+							<input type="checkbox" id="chatEndTime" name="chatLimit" checked="">
+							<label for="chatEndTime">
+								<span class="chkShape"></span>
+								<span class="chkTxt">사용 안함</span>
+							</label>
+						</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="popFooter">
+			<span></span>
+			<button type="button" class="btn-b" onclick="saveSection(this);"><i class="ico-chk"></i>저장하기</button>
+		</div>
+	</div>
+</section>
+<!--//세션 설정-->
+
+<script>
+
+		//팝업 open
+		function setSection(){
+				$('#p_setSection').addClass('open')
+			}
+
+	//세션 null, 0 일때
+	function chatSectionIpt(obj, type){
+				var value = $(obj).val();
+				var number = parseFloat(value);
+
+				if( value.length === 0 || number == 0 ){
+					if( type == 'chatLimit'){
+						$('#chatLimit').prop('checked', true);
+						$(obj).parents('.ipt').addClass('readonly');
+						$(obj).prop('readonly', true);
+					}else if( type == 'chatLimitDay'){
+						$('#chatLimitDay').prop('checked', true);
+						$(obj).parents('.ipt').addClass('readonly');
+						$(obj).prop('readonly', true);
+					}else if( type == 'chatEndTime'){
+						$('#chatEndTime').prop('checked', true);
+						$(obj).parents('.ipt').addClass('readonly');
+						$(obj).prop('readonly', true);
+					}
+				}
+			}
+//세션 저장
+function saveSection(obj){
+	toast('세션 설정이 변경되었습니다.')
+	popClose(obj);
+}
+</script>

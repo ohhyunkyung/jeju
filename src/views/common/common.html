@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=10" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no,address=no,email=no">
+	<!-- 캐쉬 삭제  -->
+	<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+	<meta http-equiv="Expires" content="-1">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<!-- 캐쉬 삭제  -->
+	<title>챗봇 설정</title>
+	<!------------------------------ favicon-->
+	<!-- <link rel="apple-touch-icon" sizes="57x57" href="../../static/images/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="../../static/images/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../../static/images/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../../static/images/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../../static/images/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../../static/images/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../../static/images/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../../static/images/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../../static/images/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="../../static/images/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="../../static/images/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="../../static/images/favicon/favicon-16x16.png">
+	<link rel="manifest" href="../../static/images/favicon//manifest.json"> 
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="../../static/images/favicon//ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">-->
+
+	<!------------------------------ css-->
+	<link rel="stylesheet" href="./../../css/common.css"/>
+	<link rel="stylesheet" href="./../../css/page.css"/>
+</head>
+
+<body>
+    <header>
+    <a href="javascript:;" onclick="dashboard();"><i class="logo"></i></a>
+    <div class="userInfo">
+        <div class="userInfoChatbot">
+            <div class="gap8 m-r20">
+                <i class="ico-chatbot"></i>
+                <span>챗봇</span>
+            </div>
+            <div class="gap12">
+                <button type="button" class="btn-blue500" onclick="chatbotTest(this);">테스트 챗봇</button>
+                <button type="button" class="btn-gray800" onclick="chatbot(this);">운영 챗봇</button>
+            </div>
+        </div>
+        <span class="userInfoNm">
+            <span class="m-r12">
+                <a href="javascript:;" class="btn-link" onclick="mypage(this);">김제주님</a> 반갑습니다.
+            </span>
+            <i class="ico-smile"></i>
+        </span>
+        <button type="button" class="btn-icon" onclick="logout();"><i class="ico-logout"></i></button>
+    </div>
+</header>
+<!--//header-->
+
+
+<script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../js/design.js"></script> 
+
+    <main class="wrap">
+        <div class="contents">
+            <div class="tit_wrap">
+                <h2>템플릿</h2>
+            </div>
+            <div class="con_wrap flex_wrap f_dc g_24">
+                <div class="flex_wrap g_16 ai_c">
+                    <span class="label label_blue">Text</span>
+                    <span class="label label_red">Text</span>
+                    <span class="label label_yellow">Text</span>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <span class="label label_blue"><span>Text</span>Text</span>
+                    <span class="label label_red"><span>Text</span>Text</span>
+                    <span class="label label_yellow"><span>Text</span>Text</span>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <input type="text" name="search">
+                    <div class="has_title">
+                        <span class="label_select">Text</span>
+                        <input type="text" name="search">
+                    </div>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <div class="multi_select_wrap">
+                        <div class="multi_select">
+                            <span class="text_select">선택</span>
+                        </div>
+                        <div class="list_items">
+                            <ul>
+                                <li class="chk"><label><input type="radio" name="type"><span class="chkTxt">일반</span></label></li>
+                                <li class="chk"><label><input type="radio" name="type"><span class="chkTxt">결합</span></label></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="has_title flex_wrap f_sb ai_c">
+                        <span class="label_select">유형</span>
+                        <div class="multi_select_wrap">
+                            <div class="multi_select">
+                                <span class="text_select">선택</span>
+                            </div>
+                            <div class="list_items">
+                                <ul>
+                                    <li class="chk"><label><input type="radio" name="type"><span class="chkTxt">일반</span></label></li>
+                                    <li class="chk"><label><input type="radio" name="type"><span class="chkTxt">결합</span></label></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <input type="text" name="daterange">
+                    <div class="has_title flex_wrap f_sb ai_c">
+                        <span class="label_select">Text</span>
+                        <input type="text" name="daterange">
+                    </div>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <div><input type="text" name="defalut"></div>
+                    <div class="has_title flex_wrap f_sb ai_c">
+                        <span class="label_select">Text</span>
+                        <input type="text" name="defalut">
+                    </div>
+                    <div class="has_title flex_wrap f_sb ai_c">
+                        <input type="text" name="defalut">
+                        <span class="label_select">Text</span>
+                    </div>
+                    <input type="text" value="disabled" disabled>
+                    <div class="has_cmt">
+                        <p class="ness">12 Regular</p>
+                        <input type="text" name="defalut">
+                        <p>Text</p>
+                    </div>
+                    <div class="has_cmt">
+                        <p class="ness">12 Regular</p>
+                        <input type="text" name="defalut" value="error" class="error">
+                        <p>Text</p>
+                    </div>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <label class="chk single">
+                        <span class="chkTxt">Text</span>
+                        <input type="checkbox">
+                        <span class="chkShape"></span>
+                    </label>
+                    <label class="chk single">
+                        <span class="chkTxt">Text</span>
+                        <input type="checkbox">
+                        <span class="chkShape"></span>
+                    </label>
+                    <label class="chk single"><input type="checkbox"><span class="chkShape"></span></label>
+                    <label class="chk single"><input type="checkbox" checked><span class="chkShape"></span></label>
+                    <label>
+                        <span class="toggle_bar"></span>
+                        <input type="checkbox" class="blind btn_toggle">
+                    </label>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <label class="chk"><input type="radio"><span class="chkShape"></span></label>
+                    <label class="chk"><input type="radio" checked><span class="chkShape"></span></label>
+                    <label class="chk"><input type="radio" disabled><span class="chkShape"></span></label>
+                    <label class="chk"><input type="radio" disabled checked><span class="chkShape"></span></label>
+                    <label class="chk"><input type="radio" class="error" disabled><span class="chkShape"></span></label>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <label class="chk g_8"><input type="checkbox"><span class="chkShape"></span></label>
+                    <label class="chk g_8"><input type="checkbox" checked><span class="chkShape"></span></label>
+                    <label class="chk g_8"><input type="checkbox" disabled><span class="chkShape"></span></label>
+                    <label class="chk g_8"><input type="checkbox" disabled checked><span class="chkShape"></span></label>
+                    <label class="chk g_8"><input type="checkbox" class="error" disabled><span class="chkShape"></span></label>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <label class="chk g_8"><input type="radio"><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                    <label class="chk g_8"><input type="radio" checked><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                    <label class="chk g_8"><input type="radio" disabled><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                    <label class="chk g_8"><input type="radio" disabled checked><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                    <label class="chk g_8"><input type="radio" class="error" disabled ><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <label class="chk g_8"><input type="checkbox"><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                    <label class="chk g_8"><input type="checkbox" checked><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                    <label class="chk g_8"><input type="checkbox" disabled><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                    <label class="chk g_8"><input type="checkbox" disabled checked><span class="chkShape"></span><span class="chkTxt">연령</span></label>
+                </div>
+                <div class="flex_wrap g_16 ai_c">
+                    <label>
+                        <input type="checkbox" class="blind btn_tab">
+                        <span class="tab_text">미사용</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" class="blind btn_tab" checked>
+                        <span class="tab_text">사용</span>
+                    </label>
+                    <label>
+                        <input type="checkbox" class="blind btn_tab" disabled>
+                        <span class="tab_text">미사용</span>
+                    </label>
+                </div>
+                <div class="flex_wrap g_16">
+                    <ul class="tab2">
+                        <li><a href="#" class="active">Text</a></li>
+                        <li><a href="#">Text</a></li>
+                        <li><a href="#">Text</a></li>
+                    </ul>
+                    
+                    <ul class="tab2">
+                        <li>Title</li>
+                        <li><a href="#" class="active">Text</a></li>
+                        <li><a href="#">Text</a></li>
+                        <li><a href="#">Text</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../lib/jquery/jquery.min.js"></script>
+	<script src="../../lib/jquery/jquery-ui.min.js"></script> 
+	<script src="../../lib/jquery/moment.min.js"></script> 
+	<script src="../../lib/daterangepicker/daterangepicker.min.js"></script> 
+	<script src="../../lib/sortable/sortable.min.js"></script> 
+	<script src="../../js/design.js"></script> 
+</body>
+
+</html>

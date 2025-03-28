@@ -1,0 +1,348 @@
+@@include('../../inc/top.html')
+<body>
+	<div class="wrap">
+		@@include('../../inc/header.html')
+		<div class="contents">
+			@@include('../../inc/nav.html')
+			<div class="pages">
+				<div class="title-page">
+					<h1>만족도 통계</h1>
+				</div>
+				<ul class="tab">
+					<li><a href="javascript:;" class="on" onclick="tab(this,'date');">날짜별</a></li>
+					<li><a href="javascript:;" onclick="tab(this,'msg')">시간별</a></li>
+				</ul>
+				<div class="search">
+					<ul class="form">
+						<li>
+							<label>기간</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="dateAll" name="dateType" checked="">
+									<label for="dateAll">전체</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateToday" name="dateType">
+									<label for="dateToday">오늘</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateWeek" name="dateType">
+									<label for="dateWeek">7일전</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="dateMonth" name="dateType">
+									<label for="dateMonth">1개월</label>
+								</div>
+							</div>
+							<div class="ipt iptDate">
+								<i class="ico-date"></i>
+								<a href="javascript:;" class="dateN" onclick="date(this);">날짜 선택</a>
+								<span class="tag ligthOrangeLine datepicker" style="display:none;">
+									<!-- 디폴트 : 날짜 적용x -->
+									<input type="text" class="">
+									<a href="javascript:;" class="dateDelete" onclick="dateDelete(this);"><i class="ico-close orange500"></i></a>
+								</span>
+							</div>
+						</li>
+						<li>
+							<label>언어</label>
+							<div class="ipt">
+								<div class="chk txtOnly">
+									<input type="radio" id="langAll" name="langType" checked="">
+									<label for="langAll">전체 153</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="langKo" name="langType">
+									<label for="langKo">한국어 153</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="langJp" name="langType">
+									<label for="langJp">일본어 153</label>
+								</div>
+								<div class="chk txtOnly">
+									<input type="radio" id="langEn" name="langType">
+									<label for="langEn">영어 153</label>
+								</div>
+							</div>
+						</li>
+						<!-- 시간별일때만 보이기-->
+						<li style="display:none;">
+							<div class="ipt">
+								<input type="text" placeholder="내용 입력">
+							</div>
+							<button type="button" class="btn-icon" onclick="search(this);"><i class="ico-sch"></i></button>
+						</li>
+						<!-- //시간별일때만 보이기-->
+					</ul>
+					<div class="flexC gap16">
+						<!-- 시간별일때 hide-->
+						<div class="chkArea">
+							<span class="chk">
+								<input type="radio" id="showTableDay" name="showTable" checked="">
+								<label for="showTableDay">
+									<span class="chkShape"></span>
+									<span class="chkTxt">일별</span>
+								</label>
+							</span>
+							<span class="chk">
+								<input type="radio" id="showTableMonth" name="showTable">
+								<label for="showTableMonth">
+									<span class="chkShape"></span>
+									<span class="chkTxt">월별</span>
+								</label>
+							</span>
+						</div>
+						<!-- //시간별일때 hide-->
+						<button type="button" class="btn-l" onclick="download();"><i class="ico-download"></i>다운로드</button>
+					</div>
+				</div>
+				<!--//search-->
+				<div class="tbl" id="tblDate">
+					<div class="tblHd">
+						<table>
+							<colgroup>
+								<col width="120"> <!--날짜-->
+								<col width="140"> <!--응답 수-->
+								<col width="*"> <!--응답율-->
+								<col width="200"> <!--5점-->
+								<col width="200"> <!--4점-->
+								<col width="200"> <!--3점-->
+								<col width="200"> <!--2점-->
+								<col width="200"> <!--1점-->
+								<col width="130"> <!--평균-->
+							</colgroup>
+							<tr>
+								<th><button type="button" class="sort"><span>날짜</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>응답 수</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>응답율</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>5점</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>4점</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>3점</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>2점</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>1점</span><i class="ico-sort"></i></button></th>
+								<th><button type="button" class="sort"><span>평균</span><i class="ico-sort"></i></button></th>
+							</tr>
+						</table>
+					</div>
+					<!--//tblHd-->
+					<div class="tblBody noCursor">
+						<!-- empty addClass('open')-->
+						<div class="empty center ">
+							<i></i>
+							<dl>
+								<dt>검색 결과가 없습니다.</dt>
+								<dd>다른 키워드로 다시 시도해 주세요.</dd>
+							</dl>
+						</div>
+						<!--//empty-->
+						<table>
+							<colgroup>
+								<col width="120"> <!--날짜-->
+								<col width="140"> <!--응답 수-->
+								<col width="*"> <!--응답율-->
+								<col width="200"> <!--5점-->
+								<col width="200"> <!--4점-->
+								<col width="200"> <!--3점-->
+								<col width="200"> <!--2점-->
+								<col width="200"> <!--1점-->
+								<col width="130"> <!--평균-->
+							</colgroup>
+							<tr>
+								<td>2024.01.17</td>
+								<td><strong>256</strong></td>
+								<td><strong>25%</strong></td>
+								<td>
+									<div class="statisticsDl">
+										<dl><dt>1,532</dt><dd>67%</dd></dl>
+									</div>
+								</td>
+								<td>
+									<div class="statisticsDl">
+										<dl><dt>1,532</dt><dd>67%</dd></dl>
+									</div>
+								</td>
+								<td>
+									<div class="statisticsDl">
+										<dl><dt>1,532</dt><dd>67%</dd></dl>
+									</div>
+								</td>
+								<td>
+									<div class="statisticsDl">
+										<dl><dt>1,532</dt><dd>67%</dd></dl>
+									</div>
+								</td>
+								<td>
+									<div class="statisticsDl">
+										<dl><dt class="crRed500">1,532</dt><dd>67%</dd></dl>
+									</div>
+								</td>
+								<td>4.5점</td>
+							</tr>
+						</table>
+					</div>
+					<!--//tblBody-->
+					<div class="tblFooter">
+						<div class="paging">
+							<div class="prev">
+								<button type="button" class="max" disabled></button>
+								<button type="button" disabled></button>
+							</div>
+							<ul>
+								<!-- 페이징 활성화 : a addClass('on') -->
+								<li><a href="javascript:;" class="on">1</a></li>
+								<li><a href="javascript:;">2</a></li>
+								<li><a href="javascript:;">3</a></li>
+								<li><a href="javascript:;">4</a></li>
+							</ul>
+							<div>
+								<button type="button"></button>
+								<button type="button" class="max"></button>
+							</div>
+						</div>
+					</div>
+					<!--//tblFooter-->
+				</div>
+				<!--//tbl, 날짜별-->
+				<div class="tbl flexColumnInit gap24" id="tblMsg" style="display:none;">
+					<div class="flex flexColumn flex1">
+						<div class="tblHd">
+							<table>
+								<colgroup>
+									<col width="160"> <!--등록일시-->
+									<col width="120"> <!--별점-->
+									<col width="*"> <!--내용-->
+									<col width="103"> <!--채팅 보기-->
+								</colgroup>
+								<tr>
+									<th><button type="button" class="sort"><span>등록일시</span><i class="ico-sort"></i></button></th>
+									<th><button type="button" class="sort"><span>별점</span><i class="ico-sort"></i></button></th>
+									<th>내용</th>
+									<th></th>
+								</tr>
+							</table>
+						</div>
+						<!--//tblHd-->
+						<div class="tblBody">
+							<!-- empty addClass('open')-->
+							<div class="empty center ">
+								<i></i>
+								<dl>
+									<dt>검색 결과가 없습니다.</dt>
+									<dd>다른 키워드로 다시 시도해 주세요.</dd>
+								</dl>
+							</div>
+							<!--//empty-->
+							<table>
+								<colgroup>
+									<col width="160"> <!--등록일시-->
+									<col width="120"> <!--구분-->
+									<col width="*"> <!--내용-->
+									<col width="103"> <!--채팅 보기-->
+								</colgroup>
+								<!-- tr 클릭시, tr addClass('selected') -->
+								<!-- 디폴트 : 첫번째 줄 활성화, 최신순 정렬 -->
+								<tr class="selected">
+									<td>2024.01.08 15:16:12</td>
+									<td>5점</td>
+									<td>
+										<!--답변 없을 경우 공백-->
+									</td>
+									<td>
+										<button type="button" class="btn-b" onclick="chatDetail(this);">채팅 보기</button>
+									</td>
+								</tr>
+								<tr class="">
+									<td>2024.01.08 15:16:12</td>
+									<td>4점</td>
+									<td>오류 없이 만족하는 답변이 나왔어요.</td>
+									<td>
+										<button type="button" class="btn-b" onclick="chatDetail(this);">채팅 보기</button>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<!--//tblBody-->
+						<div class="tblFooter">
+							<div class="paging">
+								<div class="prev">
+									<button type="button" class="max" disabled></button>
+									<button type="button" disabled></button>
+								</div>
+								<ul>
+									<!-- 페이징 활성화 : a addClass('on') -->
+									<li><a href="javascript:;" class="on">1</a></li>
+									<li><a href="javascript:;">2</a></li>
+									<li><a href="javascript:;">3</a></li>
+									<li><a href="javascript:;">4</a></li>
+								</ul>
+								<div>
+									<button type="button"></button>
+									<button type="button" class="max"></button>
+								</div>
+							</div>
+						</div>
+						<!--//tblFooter-->
+					</div>
+					<div class="chatbot chatPreview defaultSet">
+						<div class="chatHd"></div>
+						<!--전체 채팅 보일것-->
+						<div class="chatBody">
+							<div class="chatUser" style="display:inline-grid;">
+								<div class="bubble">
+									<pre>항공권 이벤트 있나요?</pre>
+								</div>
+							</div>
+							<!--//질문-->
+							<div>
+								<div class="chatProfile">
+									<!-- 디폴트 : ico-chatbotDefault.svg-->
+									<img src="../../images/icon/ico-chatbot.svg">
+									하이제코
+								</div>
+								<div class="bubble">
+									<pre>제주항공에서 진행중인 이벤트가 궁금하신가요? 아래의 내용을 확인해보세요!</pre>
+								</div>
+							</div>
+							<!--//답변-->
+						</div>
+					</div>
+				</div>
+				<!--//tbl, 시간별-->
+			</div>
+			<!--//pages-->
+		</div>
+		<!--//contents-->
+	</div>
+	<!--//wrap-->
+
+
+    <!-------------------------------- popup incloude -->
+
+
+
+
+    <!-------------------------------- script -->
+    @@include('../../inc/script.html')
+
+	<script type="text/javascript">
+
+		//날짜별,메시지 탭
+		function tab(obj, type){
+
+			$('.tbl').hide();
+
+			if( type == 'date'){ //날짜별
+
+				$('#tblDate').show();
+
+			}else if( type == 'msg' ){ //메시지
+
+				$('#tblMsg').show();
+			}
+		}
+
+
+
+	</script>
+</body>
+</html>
